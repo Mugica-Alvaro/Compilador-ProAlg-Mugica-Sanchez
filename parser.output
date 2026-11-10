@@ -1,29 +1,23 @@
-La regla es inútil debido a los conflictos
-
-   64 exp_b: operando
-
-
 Estado 71 conflictos: 3 reducción/reducción
-Estado 88 conflictos: 2 desplazamiento/reducción
-Estado 89 conflictos: 24 reducción/reducción
-Estado 124 conflictos: 6 desplazamiento/reducción
-Estado 126 conflictos: 6 desplazamiento/reducción
-Estado 130 conflictos: 2 desplazamiento/reducción, 6 reducción/reducción
-Estado 157 conflictos: 3 desplazamiento/reducción
-Estado 177 conflictos: 6 desplazamiento/reducción
-Estado 178 conflictos: 6 desplazamiento/reducción
-Estado 179 conflictos: 6 desplazamiento/reducción
-Estado 180 conflictos: 6 desplazamiento/reducción
-Estado 181 conflictos: 6 desplazamiento/reducción
-Estado 182 conflictos: 6 desplazamiento/reducción
-Estado 183 conflictos: 6 desplazamiento/reducción
-Estado 184 conflictos: 6 desplazamiento/reducción
-Estado 185 conflictos: 6 desplazamiento/reducción
-Estado 186 conflictos: 6 desplazamiento/reducción
-Estado 187 conflictos: 6 desplazamiento/reducción
-Estado 188 conflictos: 6 desplazamiento/reducción
-Estado 189 conflictos: 2 desplazamiento/reducción, 6 reducción/reducción
-Estado 190 conflictos: 2 desplazamiento/reducción, 6 reducción/reducción
+Estado 87 conflictos: 8 desplazamiento/reducción
+Estado 122 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 123 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 125 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 153 conflictos: 3 desplazamiento/reducción
+Estado 171 conflictos: 6 desplazamiento/reducción
+Estado 172 conflictos: 6 desplazamiento/reducción
+Estado 173 conflictos: 6 desplazamiento/reducción
+Estado 174 conflictos: 6 desplazamiento/reducción
+Estado 175 conflictos: 6 desplazamiento/reducción
+Estado 176 conflictos: 6 desplazamiento/reducción
+Estado 177 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 178 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 179 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 180 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 181 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 182 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 183 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 184 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
 
 
 Gramática
@@ -97,86 +91,82 @@ Gramática
 
    46 decl_sal: SAL_TK lista_d_var
 
-   47 expresion: exp_a
-   48          | exp_b
-   49          | funcion_ll
+   47 expresion: exp
+   48          | funcion_ll
 
-   50 exp_a: exp_a SUMA_TK exp_a
-   51      | exp_a RESTA_TK exp_a
-   52      | exp_a MULT_TK exp_a
-   53      | exp_a DIVARIT_TK exp_a
-   54      | exp_a MOD_TK exp_a
-   55      | exp_a DIV_TK exp_a
-   56      | PARENTESISA_TK exp_a PARENTESISC_TK
-   57      | operando
-   58      | LITERAL_TK
-   59      | RESTA_TK exp_a
-   60      | SUMA_TK exp_a
+   49 exp: exp SUMA_TK exp
+   50    | exp RESTA_TK exp
+   51    | exp MULT_TK exp
+   52    | exp DIVARIT_TK exp
+   53    | exp MOD_TK exp
+   54    | exp DIV_TK exp
+   55    | PARENTESISA_TK exp PARENTESISC_TK
+   56    | operando
+   57    | LITERAL_TK
+   58    | RESTA_TK exp
+   59    | SUMA_TK exp
+   60    | exp Y_TK exp
+   61    | exp O_TK exp
+   62    | NO_TK exp
+   63    | VERDADERO_TK
+   64    | FALSO_TK
+   65    | expresion MENOR_TK expresion
+   66    | expresion MAYOR_TK expresion
+   67    | expresion IGUAL_TK expresion
+   68    | expresion DIFERENTE_TK expresion
+   69    | expresion MAYORIGUAL_TK expresion
+   70    | expresion MENORIGUAL_TK expresion
 
-   61 exp_b: exp_b Y_TK exp_b
-   62      | exp_b O_TK exp_b
-   63      | NO_TK exp_b
-   64      | operando
-   65      | VERDADERO_TK
-   66      | FALSO_TK
-   67      | expresion MENOR_TK expresion
-   68      | expresion MAYOR_TK expresion
-   69      | expresion IGUAL_TK expresion
-   70      | expresion DIFERENTE_TK expresion
-   71      | expresion MAYORIGUAL_TK expresion
-   72      | expresion MENORIGUAL_TK expresion
-   73      | PARENTESISA_TK exp_b PARENTESISC_TK
+   71 operando: IDENTIFICADOR_TK
+   72         | operando PUNTO_TK operando
+   73         | operando CORCHETEA_TK expresion CORCHETEC_TK
+   74         | operando REF_TK
 
-   74 operando: IDENTIFICADOR_TK
-   75         | operando PUNTO_TK operando
-   76         | operando CORCHETEA_TK expresion CORCHETEC_TK
-   77         | operando REF_TK
+   75 instrucciones: instruccion PUNTOYCOMA_TK instrucciones
+   76              | instruccion
 
-   78 instrucciones: instruccion PUNTOYCOMA_TK instrucciones
-   79              | instruccion
+   77 instruccion: CONTINUAR_TK
+   78            | asignacion
+   79            | alternativa
+   80            | iteracion
+   81            | accion_ll
 
-   80 instruccion: CONTINUAR_TK
-   81            | asignacion
-   82            | alternativa
-   83            | iteracion
-   84            | accion_ll
+   82 asignacion: operando ASIGNACION_TK expresion
 
-   85 asignacion: operando ASIGNACION_TK expresion
+   83 alternativa: SI_TK expresion FLECHA_TK instrucciones lista_opciones FSI_TK
 
-   86 alternativa: SI_TK expresion FLECHA_TK instrucciones lista_opciones FSI_TK
+   84 lista_opciones: CORCHETES_TK expresion FLECHA_TK instrucciones lista_opciones
+   85               | ε
 
-   87 lista_opciones: CORCHETES_TK expresion FLECHA_TK instrucciones lista_opciones
-   88               | ε
+   86 iteracion: it_cota_fija
+   87          | it_cota_exp
 
-   89 iteracion: it_cota_fija
-   90          | it_cota_exp
+   88 it_cota_exp: MIENTRAS_TK expresion HACER_TK instrucciones FMIENTRAS_TK
 
-   91 it_cota_exp: MIENTRAS_TK expresion HACER_TK instrucciones FMIENTRAS_TK
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
 
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+   90 accion_d: ACCION_TK a_cabecera bloque FACCION_TK
 
-   93 accion_d: ACCION_TK a_cabecera bloque FACCION_TK
+   91 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK expresion FFUNCION_TK
 
-   94 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK expresion FFUNCION_TK
+   92 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form PARENTESISC_TK PUNTOYCOMA_TK
 
-   95 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form PARENTESISC_TK PUNTOYCOMA_TK
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
 
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
+   94 d_par_form: d_p_form PUNTOYCOMA_TK d_par_form
+   95           | ε
 
-   97 d_par_form: d_p_form PUNTOYCOMA_TK d_par_form
-   98           | ε
+   96 d_p_form: ENT_TK lista_id DOSPUNTOS_TK d_tipo
+   97         | SAL_TK lista_id DOSPUNTOS_TK d_tipo
+   98         | ES_TK lista_id DOSPUNTOS_TK d_tipo
 
-   99 d_p_form: ENT_TK lista_id DOSPUNTOS_TK d_tipo
-  100         | SAL_TK lista_id DOSPUNTOS_TK d_tipo
-  101         | ES_TK lista_id DOSPUNTOS_TK d_tipo
+   99 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK
 
-  102 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK
+  100 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK
 
-  103 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK
-
-  104 l_ll: expresion COMA_TK l_ll
-  105     | expresion
-  106     | ε
+  101 l_ll: expresion COMA_TK l_ll
+  102     | expresion
+  103     | ε
 
 
 Terminales con las reglas donde aparecen
@@ -185,7 +175,7 @@ Terminales con las reglas donde aparecen
     error (256)
     ALGORITMO_TK (258) 1
     ID_TK (259) 1
-    PUNTOYCOMA_TK (260) 1 15 16 17 18 28 35 37 78 95 96 97
+    PUNTOYCOMA_TK (260) 1 15 16 17 18 28 35 37 75 92 93 94
     FALGORITMO_TK (261) 1
     TIPO_TK (262) 15
     FTIPO_TK (263) 15
@@ -193,64 +183,64 @@ Terminales con las reglas donde aparecen
     FCONST_TK (265) 16
     VAR_TK (266) 17
     FVAR_TK (267) 17
-    IDENTIFICADOR_TK (268) 18 22 28 35 39 40 74 92 95 96 102 103
-    IGUAL_TK (269) 18 35 69
+    IDENTIFICADOR_TK (268) 18 22 28 35 39 40 71 89 92 93 99 100
+    IGUAL_TK (269) 18 35 67
     TUPLA_TK (270) 20
     FTUPLA_TK (271) 20
     TABLA_TK (272) 21
     DE_TK (273) 21
-    REF_TK (274) 24 77
+    REF_TK (274) 24 74
     DOBLEPUNTO_TK (275) 21 23
-    LITERAL_TK (276) 27 35 58
-    DOSPUNTOS_TK (277) 28 37 99 100 101
+    LITERAL_TK (276) 27 35 57
+    DOSPUNTOS_TK (277) 28 37 96 97 98
     ENTERO_TK (278) 30
     REAL_TK (279) 31
     BOOLEANO_TK (280) 32
     CADENA_TK (281) 33
     CARACTER_TK (282) 34
-    COMA_TK (283) 39 104
-    ENT_TK (284) 45 99
-    SAL_TK (285) 46 100
-    ES_TK (286) 101
-    SUMA_TK (287) 50 60
-    RESTA_TK (288) 51 59
-    MULT_TK (289) 52
-    DIVARIT_TK (290) 53
-    MOD_TK (291) 54
-    DIV_TK (292) 55
-    PARENTESISA_TK (293) 56 73 95 96 102 103
-    PARENTESISC_TK (294) 56 73 95 96 102 103
-    CORCHETEA_TK (295) 21 76
-    CORCHETEC_TK (296) 21 76
-    CORCHETES_TK (297) 87
-    PUNTO_TK (298) 1 75
-    Y_TK (299) 61
-    O_TK (300) 62
-    NO_TK (301) 63
-    MENOR_TK (302) 67
-    MAYOR_TK (303) 68
-    MENORIGUAL_TK (304) 72
-    MAYORIGUAL_TK (305) 71
-    DIFERENTE_TK (306) 70
-    CONTINUAR_TK (307) 80
-    ASIGNACION_TK (308) 85 92
-    SI_TK (309) 86
-    FLECHA_TK (310) 86 87
-    FSI_TK (311) 86
-    MIENTRAS_TK (312) 91
-    HACER_TK (313) 91 92
-    FMIENTRAS_TK (314) 91
-    PARA_TK (315) 92
-    HASTA_TK (316) 92
-    FPARA_TK (317) 92
-    ACCION_TK (318) 93
-    FACCION_TK (319) 93
-    FUNCION_TK (320) 94
-    DEV_TK (321) 94 96
-    FFUNCION_TK (322) 94
+    COMA_TK (283) 39 101
+    ENT_TK (284) 45 96
+    SAL_TK (285) 46 97
+    ES_TK (286) 98
+    SUMA_TK (287) 49 59
+    RESTA_TK (288) 50 58
+    MULT_TK (289) 51
+    DIVARIT_TK (290) 52
+    MOD_TK (291) 53
+    DIV_TK (292) 54
+    PARENTESISA_TK (293) 55 92 93 99 100
+    PARENTESISC_TK (294) 55 92 93 99 100
+    CORCHETEA_TK (295) 21 73
+    CORCHETEC_TK (296) 21 73
+    CORCHETES_TK (297) 84
+    PUNTO_TK (298) 1 72
+    Y_TK (299) 60
+    O_TK (300) 61
+    NO_TK (301) 62
+    MENOR_TK (302) 65
+    MAYOR_TK (303) 66
+    MENORIGUAL_TK (304) 70
+    MAYORIGUAL_TK (305) 69
+    DIFERENTE_TK (306) 68
+    CONTINUAR_TK (307) 77
+    ASIGNACION_TK (308) 82 89
+    SI_TK (309) 83
+    FLECHA_TK (310) 83 84
+    FSI_TK (311) 83
+    MIENTRAS_TK (312) 88
+    HACER_TK (313) 88 89
+    FMIENTRAS_TK (314) 88
+    PARA_TK (315) 89
+    HASTA_TK (316) 89
+    FPARA_TK (317) 89
+    ACCION_TK (318) 90
+    FACCION_TK (319) 90
+    FUNCION_TK (320) 91
+    DEV_TK (321) 91 93
+    FFUNCION_TK (322) 91
     COMENTARIO (323) 2 3
-    VERDADERO_TK (324) 65
-    FALSO_TK (325) 66
+    VERDADERO_TK (324) 63
+    FALSO_TK (325) 64
 
 
 No terminales con las reglas donde aparecen
@@ -274,7 +264,7 @@ No terminales con las reglas donde aparecen
         on right: 2 7 8
     bloque (77)
         on left: 10
-        on right: 3 93 94
+        on right: 3 90 91
     declaraciones (78)
         on left: 11 12 13 14
         on right: 10 11 12 13
@@ -292,7 +282,7 @@ No terminales con las reglas donde aparecen
         on right: 15 18
     d_tipo (83)
         on left: 20 21 22 23 24 25
-        on right: 18 21 24 28 37 96 99 100 101
+        on right: 18 21 24 28 37 93 96 97 98
     expresion_t (84)
         on left: 26 27
         on right: 21 23
@@ -307,10 +297,10 @@ No terminales con las reglas donde aparecen
         on right: 16 35
     lista_d_var (88)
         on left: 37 38
-        on right: 17 37 45 46 96
+        on right: 17 37 45 46 93
     lista_id (89)
         on left: 39 40
-        on right: 37 39 99 100 101
+        on right: 37 39 96 97 98
     decl_ent_sal (90)
         on left: 41 42 43 44
         on right: 2
@@ -321,68 +311,65 @@ No terminales con las reglas donde aparecen
         on left: 46
         on right: 42 43
     expresion (93)
-        on left: 47 48 49
-        on right: 26 67 68 69 70 71 72 76 85 86 87 91 92 94 104 105
-    exp_a (94)
-        on left: 50 51 52 53 54 55 56 57 58 59 60
-        on right: 47 50 51 52 53 54 55 56 59 60
-    exp_b (95)
-        on left: 61 62 63 64 65 66 67 68 69 70 71 72 73
-        on right: 48 61 62 63 73
-    operando (96)
-        on left: 74 75 76 77
-        on right: 57 64 75 76 77 85
-    instrucciones (97)
-        on left: 78 79
-        on right: 10 78 86 87 91 92
-    instruccion (98)
-        on left: 80 81 82 83 84
-        on right: 78 79
-    asignacion (99)
-        on left: 85
-        on right: 81
-    alternativa (100)
-        on left: 86
-        on right: 82
-    lista_opciones (101)
-        on left: 87 88
-        on right: 86 87
-    iteracion (102)
-        on left: 89 90
-        on right: 83
-    it_cota_exp (103)
-        on left: 91
-        on right: 90
-    it_cota_fija (104)
-        on left: 92
-        on right: 89
-    accion_d (105)
-        on left: 93
+        on left: 47 48
+        on right: 26 65 66 67 68 69 70 73 82 83 84 88 89 91 101 102
+    exp (94)
+        on left: 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+        on right: 47 49 50 51 52 53 54 55 58 59 60 61 62
+    operando (95)
+        on left: 71 72 73 74
+        on right: 56 72 73 74 82
+    instrucciones (96)
+        on left: 75 76
+        on right: 10 75 83 84 88 89
+    instruccion (97)
+        on left: 77 78 79 80 81
+        on right: 75 76
+    asignacion (98)
+        on left: 82
+        on right: 78
+    alternativa (99)
+        on left: 83
+        on right: 79
+    lista_opciones (100)
+        on left: 84 85
+        on right: 83 84
+    iteracion (101)
+        on left: 86 87
+        on right: 80
+    it_cota_exp (102)
+        on left: 88
+        on right: 87
+    it_cota_fija (103)
+        on left: 89
+        on right: 86
+    accion_d (104)
+        on left: 90
         on right: 7
-    funcion_d (106)
-        on left: 94
+    funcion_d (105)
+        on left: 91
         on right: 8
-    a_cabecera (107)
-        on left: 95
-        on right: 93
-    f_cabecera (108)
-        on left: 96
+    a_cabecera (106)
+        on left: 92
+        on right: 90
+    f_cabecera (107)
+        on left: 93
+        on right: 91
+    d_par_form (108)
+        on left: 94 95
+        on right: 92 94
+    d_p_form (109)
+        on left: 96 97 98
         on right: 94
-    d_par_form (109)
-        on left: 97 98
-        on right: 95 97
-    d_p_form (110)
-        on left: 99 100 101
-        on right: 97
-    accion_ll (111)
-        on left: 102
-        on right: 84
-    funcion_ll (112)
-        on left: 103
-        on right: 49
-    l_ll (113)
-        on left: 104 105 106
-        on right: 102 103 104
+    accion_ll (110)
+        on left: 99
+        on right: 81
+    funcion_ll (111)
+        on left: 100
+        on right: 48
+    l_ll (112)
+        on left: 101 102 103
+        on right: 99 100 101
 
 
 Estado 0
@@ -644,7 +631,7 @@ Estado 22
 
 Estado 23
 
-   93 accion_d: ACCION_TK • a_cabecera bloque FACCION_TK
+   90 accion_d: ACCION_TK • a_cabecera bloque FACCION_TK
 
     IDENTIFICADOR_TK  desplazar e ir al estado 56
 
@@ -653,7 +640,7 @@ Estado 23
 
 Estado 24
 
-   94 funcion_d: FUNCION_TK • f_cabecera bloque DEV_TK expresion FFUNCION_TK
+   91 funcion_d: FUNCION_TK • f_cabecera bloque DEV_TK expresion FFUNCION_TK
 
     IDENTIFICADOR_TK  desplazar e ir al estado 58
 
@@ -741,31 +728,30 @@ Estado 30
     expresion_t  ir al estado 84
     tipo_base    ir al estado 85
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
 Estado 31
 
    15 declaracion_tipo: TIPO_TK lista_d_tipo FTIPO_TK • PUNTOYCOMA_TK
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 91
+    PUNTOYCOMA_TK  desplazar e ir al estado 90
 
 
 Estado 32
 
    35 lista_d_cte: IDENTIFICADOR_TK IGUAL_TK • LITERAL_TK PUNTOYCOMA_TK lista_d_cte
 
-    LITERAL_TK  desplazar e ir al estado 92
+    LITERAL_TK  desplazar e ir al estado 91
 
 
 Estado 33
 
    16 declaracion_const: CONST_TK lista_d_cte FCONST_TK • PUNTOYCOMA_TK
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 93
+    PUNTOYCOMA_TK  desplazar e ir al estado 92
 
 
 Estado 34
@@ -773,7 +759,7 @@ Estado 34
    39 lista_id: IDENTIFICADOR_TK • COMA_TK lista_id
    40         | IDENTIFICADOR_TK •
 
-    COMA_TK  desplazar e ir al estado 94
+    COMA_TK  desplazar e ir al estado 93
 
     $default  reduce usando la regla 40 (lista_id)
 
@@ -782,21 +768,21 @@ Estado 35
 
    17 declaracion_var: VAR_TK lista_d_var • FVAR_TK PUNTOYCOMA_TK
 
-    FVAR_TK  desplazar e ir al estado 95
+    FVAR_TK  desplazar e ir al estado 94
 
 
 Estado 36
 
    37 lista_d_var: lista_id • DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_d_var
 
-    DOSPUNTOS_TK  desplazar e ir al estado 96
+    DOSPUNTOS_TK  desplazar e ir al estado 95
 
 
 Estado 37
 
     1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK • PUNTO_TK
 
-    PUNTO_TK  desplazar e ir al estado 97
+    PUNTO_TK  desplazar e ir al estado 96
 
 
 Estado 38
@@ -808,27 +794,46 @@ Estado 38
 
 Estado 39
 
-   74 operando: IDENTIFICADOR_TK •
-  102 accion_ll: IDENTIFICADOR_TK • PARENTESISA_TK l_ll PARENTESISC_TK
+   71 operando: IDENTIFICADOR_TK •
+   99 accion_ll: IDENTIFICADOR_TK • PARENTESISA_TK l_ll PARENTESISC_TK
 
-    PARENTESISA_TK  desplazar e ir al estado 98
+    PARENTESISA_TK  desplazar e ir al estado 97
 
-    $default  reduce usando la regla 74 (operando)
+    $default  reduce usando la regla 71 (operando)
 
 
 Estado 40
 
-   80 instruccion: CONTINUAR_TK •
+   77 instruccion: CONTINUAR_TK •
 
-    $default  reduce usando la regla 80 (instruccion)
+    $default  reduce usando la regla 77 (instruccion)
 
 
 Estado 41
 
-   86 alternativa: SI_TK • expresion FLECHA_TK instrucciones lista_opciones FSI_TK
+   83 alternativa: SI_TK • expresion FLECHA_TK instrucciones lista_opciones FSI_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 100
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 42
+
+   88 it_cota_exp: MIENTRAS_TK • expresion HACER_TK instrucciones FMIENTRAS_TK
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -837,50 +842,29 @@ Estado 41
     FALSO_TK          desplazar e ir al estado 82
 
     expresion   ir al estado 101
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
-
-
-Estado 42
-
-   91 it_cota_exp: MIENTRAS_TK • expresion HACER_TK instrucciones FMIENTRAS_TK
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    expresion   ir al estado 102
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 43
 
-   92 it_cota_fija: PARA_TK • IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+   89 it_cota_fija: PARA_TK • IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 103
+    IDENTIFICADOR_TK  desplazar e ir al estado 102
 
 
 Estado 44
 
-   75 operando: operando • PUNTO_TK operando
-   76         | operando • CORCHETEA_TK expresion CORCHETEC_TK
-   77         | operando • REF_TK
-   85 asignacion: operando • ASIGNACION_TK expresion
+   72 operando: operando • PUNTO_TK operando
+   73         | operando • CORCHETEA_TK expresion CORCHETEC_TK
+   74         | operando • REF_TK
+   82 asignacion: operando • ASIGNACION_TK expresion
 
-    REF_TK         desplazar e ir al estado 104
-    CORCHETEA_TK   desplazar e ir al estado 105
-    PUNTO_TK       desplazar e ir al estado 106
-    ASIGNACION_TK  desplazar e ir al estado 107
+    REF_TK         desplazar e ir al estado 103
+    CORCHETEA_TK   desplazar e ir al estado 104
+    PUNTO_TK       desplazar e ir al estado 105
+    ASIGNACION_TK  desplazar e ir al estado 106
 
 
 Estado 45
@@ -892,54 +876,54 @@ Estado 45
 
 Estado 46
 
-   78 instrucciones: instruccion • PUNTOYCOMA_TK instrucciones
-   79              | instruccion •
+   75 instrucciones: instruccion • PUNTOYCOMA_TK instrucciones
+   76              | instruccion •
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 108
+    PUNTOYCOMA_TK  desplazar e ir al estado 107
 
-    $default  reduce usando la regla 79 (instrucciones)
+    $default  reduce usando la regla 76 (instrucciones)
 
 
 Estado 47
 
-   81 instruccion: asignacion •
+   78 instruccion: asignacion •
 
-    $default  reduce usando la regla 81 (instruccion)
+    $default  reduce usando la regla 78 (instruccion)
 
 
 Estado 48
 
-   82 instruccion: alternativa •
+   79 instruccion: alternativa •
 
-    $default  reduce usando la regla 82 (instruccion)
+    $default  reduce usando la regla 79 (instruccion)
 
 
 Estado 49
 
-   83 instruccion: iteracion •
+   80 instruccion: iteracion •
 
-    $default  reduce usando la regla 83 (instruccion)
+    $default  reduce usando la regla 80 (instruccion)
 
 
 Estado 50
 
-   90 iteracion: it_cota_exp •
+   87 iteracion: it_cota_exp •
 
-    $default  reduce usando la regla 90 (iteracion)
+    $default  reduce usando la regla 87 (iteracion)
 
 
 Estado 51
 
-   89 iteracion: it_cota_fija •
+   86 iteracion: it_cota_fija •
 
-    $default  reduce usando la regla 89 (iteracion)
+    $default  reduce usando la regla 86 (iteracion)
 
 
 Estado 52
 
-   84 instruccion: accion_ll •
+   81 instruccion: accion_ll •
 
-    $default  reduce usando la regla 84 (instruccion)
+    $default  reduce usando la regla 81 (instruccion)
 
 
 Estado 53
@@ -965,14 +949,14 @@ Estado 55
 
 Estado 56
 
-   95 a_cabecera: IDENTIFICADOR_TK • PARENTESISA_TK d_par_form PARENTESISC_TK PUNTOYCOMA_TK
+   92 a_cabecera: IDENTIFICADOR_TK • PARENTESISA_TK d_par_form PARENTESISC_TK PUNTOYCOMA_TK
 
-    PARENTESISA_TK  desplazar e ir al estado 109
+    PARENTESISA_TK  desplazar e ir al estado 108
 
 
 Estado 57
 
-   93 accion_d: ACCION_TK a_cabecera • bloque FACCION_TK
+   90 accion_d: ACCION_TK a_cabecera • bloque FACCION_TK
 
     TIPO_TK   desplazar e ir al estado 6
     CONST_TK  desplazar e ir al estado 7
@@ -980,7 +964,7 @@ Estado 57
 
     $default  reduce usando la regla 14 (declaraciones)
 
-    bloque             ir al estado 110
+    bloque             ir al estado 109
     declaraciones      ir al estado 19
     declaracion_tipo   ir al estado 20
     declaracion_const  ir al estado 21
@@ -989,14 +973,14 @@ Estado 57
 
 Estado 58
 
-   96 f_cabecera: IDENTIFICADOR_TK • PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
+   93 f_cabecera: IDENTIFICADOR_TK • PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
 
-    PARENTESISA_TK  desplazar e ir al estado 111
+    PARENTESISA_TK  desplazar e ir al estado 110
 
 
 Estado 59
 
-   94 funcion_d: FUNCION_TK f_cabecera • bloque DEV_TK expresion FFUNCION_TK
+   91 funcion_d: FUNCION_TK f_cabecera • bloque DEV_TK expresion FFUNCION_TK
 
     TIPO_TK   desplazar e ir al estado 6
     CONST_TK  desplazar e ir al estado 7
@@ -1004,7 +988,7 @@ Estado 59
 
     $default  reduce usando la regla 14 (declaraciones)
 
-    bloque             ir al estado 112
+    bloque             ir al estado 111
     declaraciones      ir al estado 19
     declaracion_tipo   ir al estado 20
     declaracion_const  ir al estado 21
@@ -1019,7 +1003,7 @@ Estado 60
 
     $default  reduce usando la regla 38 (lista_d_var)
 
-    lista_d_var  ir al estado 113
+    lista_d_var  ir al estado 112
     lista_id     ir al estado 36
 
 
@@ -1031,7 +1015,7 @@ Estado 61
 
     $default  reduce usando la regla 38 (lista_d_var)
 
-    lista_d_var  ir al estado 114
+    lista_d_var  ir al estado 113
     lista_id     ir al estado 36
 
 
@@ -1039,7 +1023,7 @@ Estado 62
 
     2 cabecera_alg: decl_globales decl_a_f decl_ent_sal • COMENTARIO
 
-    COMENTARIO  desplazar e ir al estado 115
+    COMENTARIO  desplazar e ir al estado 114
 
 
 Estado 63
@@ -1051,7 +1035,7 @@ Estado 63
 
     $default  reduce usando la regla 41 (decl_ent_sal)
 
-    decl_sal  ir al estado 116
+    decl_sal  ir al estado 115
 
 
 Estado 64
@@ -1078,31 +1062,31 @@ Estado 66
 Estado 67
 
    22 d_tipo: IDENTIFICADOR_TK •
-   74 operando: IDENTIFICADOR_TK •
-  103 funcion_ll: IDENTIFICADOR_TK • PARENTESISA_TK l_ll PARENTESISC_TK
+   71 operando: IDENTIFICADOR_TK •
+  100 funcion_ll: IDENTIFICADOR_TK • PARENTESISA_TK l_ll PARENTESISC_TK
 
-    PARENTESISA_TK  desplazar e ir al estado 117
+    PARENTESISA_TK  desplazar e ir al estado 116
 
     PUNTOYCOMA_TK  reduce usando la regla 22 (d_tipo)
-    $default       reduce usando la regla 74 (operando)
+    $default       reduce usando la regla 71 (operando)
 
 
 Estado 68
 
    20 d_tipo: TUPLA_TK • lista_campos FTUPLA_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 118
+    IDENTIFICADOR_TK  desplazar e ir al estado 117
 
     $default  reduce usando la regla 29 (lista_campos)
 
-    lista_campos  ir al estado 119
+    lista_campos  ir al estado 118
 
 
 Estado 69
 
    21 d_tipo: TABLA_TK • CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo
 
-    CORCHETEA_TK  desplazar e ir al estado 120
+    CORCHETEA_TK  desplazar e ir al estado 119
 
 
 Estado 70
@@ -1126,28 +1110,27 @@ Estado 70
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    d_tipo       ir al estado 121
+    d_tipo       ir al estado 120
     expresion_t  ir al estado 84
     tipo_base    ir al estado 85
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
 Estado 71
 
    27 expresion_t: LITERAL_TK •
-   58 exp_a: LITERAL_TK •
+   57 exp: LITERAL_TK •
 
     PUNTOYCOMA_TK  reduce usando la regla 27 (expresion_t)
-    PUNTOYCOMA_TK  [reduce usando la regla 58 (exp_a)]
+    PUNTOYCOMA_TK  [reduce usando la regla 57 (exp)]
     DOBLEPUNTO_TK  reduce usando la regla 27 (expresion_t)
-    DOBLEPUNTO_TK  [reduce usando la regla 58 (exp_a)]
+    DOBLEPUNTO_TK  [reduce usando la regla 57 (exp)]
     CORCHETEC_TK   reduce usando la regla 27 (expresion_t)
-    CORCHETEC_TK   [reduce usando la regla 58 (exp_a)]
-    $default       reduce usando la regla 58 (exp_a)
+    CORCHETEC_TK   [reduce usando la regla 57 (exp)]
+    $default       reduce usando la regla 57 (exp)
 
 
 Estado 72
@@ -1187,39 +1170,48 @@ Estado 76
 
 Estado 77
 
-   60 exp_a: SUMA_TK • exp_a
+   59 exp: SUMA_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
 
-    exp_a     ir al estado 124
-    operando  ir al estado 125
+    expresion   ir al estado 121
+    exp         ir al estado 122
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 78
 
-   59 exp_a: RESTA_TK • exp_a
+   58 exp: RESTA_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
 
-    exp_a     ir al estado 126
-    operando  ir al estado 125
+    expresion   ir al estado 121
+    exp         ir al estado 123
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 79
 
-   56 exp_a: PARENTESISA_TK • exp_a PARENTESISC_TK
-   73 exp_b: PARENTESISA_TK • exp_b PARENTESISC_TK
+   55 exp: PARENTESISA_TK • exp PARENTESISC_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -1227,19 +1219,18 @@ Estado 79
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 127
-    exp_a       ir al estado 128
-    exp_b       ir al estado 129
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 124
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 80
 
-   63 exp_b: NO_TK • exp_b
+   62 exp: NO_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -1247,39 +1238,38 @@ Estado 80
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 127
-    exp_a       ir al estado 87
-    exp_b       ir al estado 130
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 125
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 81
 
-   65 exp_b: VERDADERO_TK •
+   63 exp: VERDADERO_TK •
 
-    $default  reduce usando la regla 65 (exp_b)
+    $default  reduce usando la regla 63 (exp)
 
 
 Estado 82
 
-   66 exp_b: FALSO_TK •
+   64 exp: FALSO_TK •
 
-    $default  reduce usando la regla 66 (exp_b)
+    $default  reduce usando la regla 64 (exp)
 
 
 Estado 83
 
    18 lista_d_tipo: IDENTIFICADOR_TK IGUAL_TK d_tipo • PUNTOYCOMA_TK lista_d_tipo
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 131
+    PUNTOYCOMA_TK  desplazar e ir al estado 126
 
 
 Estado 84
 
    23 d_tipo: expresion_t • DOBLEPUNTO_TK expresion_t
 
-    DOBLEPUNTO_TK  desplazar e ir al estado 132
+    DOBLEPUNTO_TK  desplazar e ir al estado 127
 
 
 Estado 85
@@ -1292,165 +1282,114 @@ Estado 85
 Estado 86
 
    26 expresion_t: expresion •
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
 
     $default  reduce usando la regla 26 (expresion_t)
 
 
 Estado 87
 
-   47 expresion: exp_a •
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    $default  reduce usando la regla 47 (expresion)
+    SUMA_TK     [reduce usando la regla 47 (expresion)]
+    RESTA_TK    [reduce usando la regla 47 (expresion)]
+    MULT_TK     [reduce usando la regla 47 (expresion)]
+    DIVARIT_TK  [reduce usando la regla 47 (expresion)]
+    MOD_TK      [reduce usando la regla 47 (expresion)]
+    DIV_TK      [reduce usando la regla 47 (expresion)]
+    Y_TK        [reduce usando la regla 47 (expresion)]
+    O_TK        [reduce usando la regla 47 (expresion)]
+    $default    reduce usando la regla 47 (expresion)
 
 
 Estado 88
 
-   48 expresion: exp_b •
-   61 exp_b: exp_b • Y_TK exp_b
-   62      | exp_b • O_TK exp_b
+   56 exp: operando •
+   72 operando: operando • PUNTO_TK operando
+   73         | operando • CORCHETEA_TK expresion CORCHETEC_TK
+   74         | operando • REF_TK
 
-    Y_TK  desplazar e ir al estado 145
-    O_TK  desplazar e ir al estado 146
+    REF_TK        desplazar e ir al estado 103
+    CORCHETEA_TK  desplazar e ir al estado 104
+    PUNTO_TK      desplazar e ir al estado 105
 
-    Y_TK      [reduce usando la regla 48 (expresion)]
-    O_TK      [reduce usando la regla 48 (expresion)]
-    $default  reduce usando la regla 48 (expresion)
+    $default  reduce usando la regla 56 (exp)
 
 
 Estado 89
 
-   57 exp_a: operando •
-   64 exp_b: operando •
-   75 operando: operando • PUNTO_TK operando
-   76         | operando • CORCHETEA_TK expresion CORCHETEC_TK
-   77         | operando • REF_TK
+   48 expresion: funcion_ll •
 
-    REF_TK        desplazar e ir al estado 104
-    CORCHETEA_TK  desplazar e ir al estado 105
-    PUNTO_TK      desplazar e ir al estado 106
-
-    PUNTOYCOMA_TK   reduce usando la regla 57 (exp_a)
-    PUNTOYCOMA_TK   [reduce usando la regla 64 (exp_b)]
-    IGUAL_TK        reduce usando la regla 57 (exp_a)
-    IGUAL_TK        [reduce usando la regla 64 (exp_b)]
-    DOBLEPUNTO_TK   reduce usando la regla 57 (exp_a)
-    DOBLEPUNTO_TK   [reduce usando la regla 64 (exp_b)]
-    COMA_TK         reduce usando la regla 57 (exp_a)
-    COMA_TK         [reduce usando la regla 64 (exp_b)]
-    PARENTESISC_TK  reduce usando la regla 57 (exp_a)
-    PARENTESISC_TK  [reduce usando la regla 64 (exp_b)]
-    CORCHETEC_TK    reduce usando la regla 57 (exp_a)
-    CORCHETEC_TK    [reduce usando la regla 64 (exp_b)]
-    CORCHETES_TK    reduce usando la regla 57 (exp_a)
-    CORCHETES_TK    [reduce usando la regla 64 (exp_b)]
-    Y_TK            reduce usando la regla 57 (exp_a)
-    Y_TK            [reduce usando la regla 64 (exp_b)]
-    O_TK            reduce usando la regla 57 (exp_a)
-    O_TK            [reduce usando la regla 64 (exp_b)]
-    MENOR_TK        reduce usando la regla 57 (exp_a)
-    MENOR_TK        [reduce usando la regla 64 (exp_b)]
-    MAYOR_TK        reduce usando la regla 57 (exp_a)
-    MAYOR_TK        [reduce usando la regla 64 (exp_b)]
-    MENORIGUAL_TK   reduce usando la regla 57 (exp_a)
-    MENORIGUAL_TK   [reduce usando la regla 64 (exp_b)]
-    MAYORIGUAL_TK   reduce usando la regla 57 (exp_a)
-    MAYORIGUAL_TK   [reduce usando la regla 64 (exp_b)]
-    DIFERENTE_TK    reduce usando la regla 57 (exp_a)
-    DIFERENTE_TK    [reduce usando la regla 64 (exp_b)]
-    FLECHA_TK       reduce usando la regla 57 (exp_a)
-    FLECHA_TK       [reduce usando la regla 64 (exp_b)]
-    FSI_TK          reduce usando la regla 57 (exp_a)
-    FSI_TK          [reduce usando la regla 64 (exp_b)]
-    HACER_TK        reduce usando la regla 57 (exp_a)
-    HACER_TK        [reduce usando la regla 64 (exp_b)]
-    FMIENTRAS_TK    reduce usando la regla 57 (exp_a)
-    FMIENTRAS_TK    [reduce usando la regla 64 (exp_b)]
-    HASTA_TK        reduce usando la regla 57 (exp_a)
-    HASTA_TK        [reduce usando la regla 64 (exp_b)]
-    FPARA_TK        reduce usando la regla 57 (exp_a)
-    FPARA_TK        [reduce usando la regla 64 (exp_b)]
-    FACCION_TK      reduce usando la regla 57 (exp_a)
-    FACCION_TK      [reduce usando la regla 64 (exp_b)]
-    DEV_TK          reduce usando la regla 57 (exp_a)
-    DEV_TK          [reduce usando la regla 64 (exp_b)]
-    FFUNCION_TK     reduce usando la regla 57 (exp_a)
-    FFUNCION_TK     [reduce usando la regla 64 (exp_b)]
-    COMENTARIO      reduce usando la regla 57 (exp_a)
-    COMENTARIO      [reduce usando la regla 64 (exp_b)]
-    $default        reduce usando la regla 57 (exp_a)
+    $default  reduce usando la regla 48 (expresion)
 
 
 Estado 90
-
-   49 expresion: funcion_ll •
-
-    $default  reduce usando la regla 49 (expresion)
-
-
-Estado 91
 
    15 declaracion_tipo: TIPO_TK lista_d_tipo FTIPO_TK PUNTOYCOMA_TK •
 
     $default  reduce usando la regla 15 (declaracion_tipo)
 
 
-Estado 92
+Estado 91
 
    35 lista_d_cte: IDENTIFICADOR_TK IGUAL_TK LITERAL_TK • PUNTOYCOMA_TK lista_d_cte
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 147
+    PUNTOYCOMA_TK  desplazar e ir al estado 142
 
 
-Estado 93
+Estado 92
 
    16 declaracion_const: CONST_TK lista_d_cte FCONST_TK PUNTOYCOMA_TK •
 
     $default  reduce usando la regla 16 (declaracion_const)
 
 
-Estado 94
+Estado 93
 
    39 lista_id: IDENTIFICADOR_TK COMA_TK • lista_id
 
     IDENTIFICADOR_TK  desplazar e ir al estado 34
 
-    lista_id  ir al estado 148
+    lista_id  ir al estado 143
 
 
-Estado 95
+Estado 94
 
    17 declaracion_var: VAR_TK lista_d_var FVAR_TK • PUNTOYCOMA_TK
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 149
+    PUNTOYCOMA_TK  desplazar e ir al estado 144
 
 
-Estado 96
+Estado 95
 
    37 lista_d_var: lista_id DOSPUNTOS_TK • d_tipo PUNTOYCOMA_TK lista_d_var
 
@@ -1471,29 +1410,28 @@ Estado 96
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    d_tipo       ir al estado 150
+    d_tipo       ir al estado 145
     expresion_t  ir al estado 84
     tipo_base    ir al estado 85
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
-Estado 97
+Estado 96
 
     1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK •
 
     $default  reduce usando la regla 1 (desc_algoritmo)
 
 
-Estado 98
+Estado 97
 
-  102 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK • l_ll PARENTESISC_TK
+   99 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK • l_ll PARENTESISC_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -1501,120 +1439,118 @@ Estado 98
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    $default  reduce usando la regla 106 (l_ll)
+    $default  reduce usando la regla 103 (l_ll)
 
-    expresion   ir al estado 151
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
-    l_ll        ir al estado 152
+    expresion   ir al estado 146
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+    l_ll        ir al estado 147
+
+
+Estado 98
+
+   71 operando: IDENTIFICADOR_TK •
+  100 funcion_ll: IDENTIFICADOR_TK • PARENTESISA_TK l_ll PARENTESISC_TK
+
+    PARENTESISA_TK  desplazar e ir al estado 116
+
+    $default  reduce usando la regla 71 (operando)
 
 
 Estado 99
 
-   74 operando: IDENTIFICADOR_TK •
-  103 funcion_ll: IDENTIFICADOR_TK • PARENTESISA_TK l_ll PARENTESISC_TK
+   57 exp: LITERAL_TK •
 
-    PARENTESISA_TK  desplazar e ir al estado 117
-
-    $default  reduce usando la regla 74 (operando)
+    $default  reduce usando la regla 57 (exp)
 
 
 Estado 100
 
-   58 exp_a: LITERAL_TK •
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   83 alternativa: SI_TK expresion • FLECHA_TK instrucciones lista_opciones FSI_TK
 
-    $default  reduce usando la regla 58 (exp_a)
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+    FLECHA_TK      desplazar e ir al estado 148
 
 
 Estado 101
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   86 alternativa: SI_TK expresion • FLECHA_TK instrucciones lista_opciones FSI_TK
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   88 it_cota_exp: MIENTRAS_TK expresion • HACER_TK instrucciones FMIENTRAS_TK
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-    FLECHA_TK      desplazar e ir al estado 153
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+    HACER_TK       desplazar e ir al estado 149
 
 
 Estado 102
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   91 it_cota_exp: MIENTRAS_TK expresion • HACER_TK instrucciones FMIENTRAS_TK
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK • ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-    HACER_TK       desplazar e ir al estado 154
+    ASIGNACION_TK  desplazar e ir al estado 150
 
 
 Estado 103
 
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK • ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+   74 operando: operando REF_TK •
 
-    ASIGNACION_TK  desplazar e ir al estado 155
+    $default  reduce usando la regla 74 (operando)
 
 
 Estado 104
 
-   77 operando: operando REF_TK •
+   73 operando: operando CORCHETEA_TK • expresion CORCHETEC_TK
 
-    $default  reduce usando la regla 77 (operando)
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 151
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 105
 
-   76 operando: operando CORCHETEA_TK • expresion CORCHETEC_TK
+   72 operando: operando PUNTO_TK • operando
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
+    IDENTIFICADOR_TK  desplazar e ir al estado 152
 
-    expresion   ir al estado 156
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    operando  ir al estado 153
 
 
 Estado 106
 
-   75 operando: operando PUNTO_TK • operando
+   82 asignacion: operando ASIGNACION_TK • expresion
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-
-    operando  ir al estado 157
-
-
-Estado 107
-
-   85 asignacion: operando ASIGNACION_TK • expresion
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -1622,16 +1558,15 @@ Estado 107
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 158
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 154
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
-Estado 108
+Estado 107
 
-   78 instrucciones: instruccion PUNTOYCOMA_TK • instrucciones
+   75 instrucciones: instruccion PUNTOYCOMA_TK • instrucciones
 
     IDENTIFICADOR_TK  desplazar e ir al estado 39
     CONTINUAR_TK      desplazar e ir al estado 40
@@ -1640,7 +1575,7 @@ Estado 108
     PARA_TK           desplazar e ir al estado 43
 
     operando       ir al estado 44
-    instrucciones  ir al estado 159
+    instrucciones  ir al estado 155
     instruccion    ir al estado 46
     asignacion     ir al estado 47
     alternativa    ir al estado 48
@@ -1650,80 +1585,80 @@ Estado 108
     accion_ll      ir al estado 52
 
 
+Estado 108
+
+   92 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK • d_par_form PARENTESISC_TK PUNTOYCOMA_TK
+
+    ENT_TK  desplazar e ir al estado 156
+    SAL_TK  desplazar e ir al estado 157
+    ES_TK   desplazar e ir al estado 158
+
+    $default  reduce usando la regla 95 (d_par_form)
+
+    d_par_form  ir al estado 159
+    d_p_form    ir al estado 160
+
+
 Estado 109
 
-   95 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK • d_par_form PARENTESISC_TK PUNTOYCOMA_TK
+   90 accion_d: ACCION_TK a_cabecera bloque • FACCION_TK
 
-    ENT_TK  desplazar e ir al estado 160
-    SAL_TK  desplazar e ir al estado 161
-    ES_TK   desplazar e ir al estado 162
-
-    $default  reduce usando la regla 98 (d_par_form)
-
-    d_par_form  ir al estado 163
-    d_p_form    ir al estado 164
+    FACCION_TK  desplazar e ir al estado 161
 
 
 Estado 110
 
-   93 accion_d: ACCION_TK a_cabecera bloque • FACCION_TK
-
-    FACCION_TK  desplazar e ir al estado 165
-
-
-Estado 111
-
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK • lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK • lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
 
     IDENTIFICADOR_TK  desplazar e ir al estado 34
 
     $default  reduce usando la regla 38 (lista_d_var)
 
-    lista_d_var  ir al estado 166
+    lista_d_var  ir al estado 162
     lista_id     ir al estado 36
 
 
+Estado 111
+
+   91 funcion_d: FUNCION_TK f_cabecera bloque • DEV_TK expresion FFUNCION_TK
+
+    DEV_TK  desplazar e ir al estado 163
+
+
 Estado 112
-
-   94 funcion_d: FUNCION_TK f_cabecera bloque • DEV_TK expresion FFUNCION_TK
-
-    DEV_TK  desplazar e ir al estado 167
-
-
-Estado 113
 
    45 decl_ent: ENT_TK lista_d_var •
 
     $default  reduce usando la regla 45 (decl_ent)
 
 
-Estado 114
+Estado 113
 
    46 decl_sal: SAL_TK lista_d_var •
 
     $default  reduce usando la regla 46 (decl_sal)
 
 
-Estado 115
+Estado 114
 
     2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO •
 
     $default  reduce usando la regla 2 (cabecera_alg)
 
 
-Estado 116
+Estado 115
 
    42 decl_ent_sal: decl_ent decl_sal •
 
     $default  reduce usando la regla 42 (decl_ent_sal)
 
 
-Estado 117
+Estado 116
 
-  103 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK • l_ll PARENTESISC_TK
+  100 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK • l_ll PARENTESISC_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -1731,35 +1666,34 @@ Estado 117
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    $default  reduce usando la regla 106 (l_ll)
+    $default  reduce usando la regla 103 (l_ll)
 
-    expresion   ir al estado 151
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
-    l_ll        ir al estado 168
+    expresion   ir al estado 146
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+    l_ll        ir al estado 164
+
+
+Estado 117
+
+   28 lista_campos: IDENTIFICADOR_TK • DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_campos
+
+    DOSPUNTOS_TK  desplazar e ir al estado 165
 
 
 Estado 118
 
-   28 lista_campos: IDENTIFICADOR_TK • DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_campos
+   20 d_tipo: TUPLA_TK lista_campos • FTUPLA_TK
 
-    DOSPUNTOS_TK  desplazar e ir al estado 169
+    FTUPLA_TK  desplazar e ir al estado 166
 
 
 Estado 119
 
-   20 d_tipo: TUPLA_TK lista_campos • FTUPLA_TK
-
-    FTUPLA_TK  desplazar e ir al estado 170
-
-
-Estado 120
-
    21 d_tipo: TABLA_TK CORCHETEA_TK • expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
     LITERAL_TK        desplazar e ir al estado 71
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
@@ -1768,189 +1702,199 @@ Estado 120
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion_t  ir al estado 171
+    expresion_t  ir al estado 167
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
-Estado 121
+Estado 120
 
    24 d_tipo: REF_TK d_tipo •
 
     $default  reduce usando la regla 24 (d_tipo)
 
 
+Estado 121
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+
 Estado 122
 
-   74 operando: IDENTIFICADOR_TK •
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   59    | SUMA_TK exp •
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    $default  reduce usando la regla 74 (operando)
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
+
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 59 (exp)]
+    SUMA_TK        [reduce usando la regla 59 (exp)]
+    RESTA_TK       [reduce usando la regla 59 (exp)]
+    MULT_TK        [reduce usando la regla 59 (exp)]
+    DIVARIT_TK     [reduce usando la regla 59 (exp)]
+    MOD_TK         [reduce usando la regla 59 (exp)]
+    DIV_TK         [reduce usando la regla 59 (exp)]
+    Y_TK           [reduce usando la regla 59 (exp)]
+    O_TK           [reduce usando la regla 59 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 59 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 59 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 59 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 59 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 59 (exp)]
+    $default       reduce usando la regla 59 (exp)
 
 
 Estado 123
 
-   56 exp_a: PARENTESISA_TK • exp_a PARENTESISC_TK
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   58    | RESTA_TK exp •
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    exp_a     ir al estado 172
-    operando  ir al estado 125
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 58 (exp)]
+    SUMA_TK        [reduce usando la regla 58 (exp)]
+    RESTA_TK       [reduce usando la regla 58 (exp)]
+    MULT_TK        [reduce usando la regla 58 (exp)]
+    DIVARIT_TK     [reduce usando la regla 58 (exp)]
+    MOD_TK         [reduce usando la regla 58 (exp)]
+    DIV_TK         [reduce usando la regla 58 (exp)]
+    Y_TK           [reduce usando la regla 58 (exp)]
+    O_TK           [reduce usando la regla 58 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 58 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 58 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 58 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 58 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 58 (exp)]
+    $default       reduce usando la regla 58 (exp)
 
 
 Estado 124
 
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-   60      | SUMA_TK exp_a •
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   55    | PARENTESISA_TK exp • PARENTESISC_TK
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
-
-    SUMA_TK     [reduce usando la regla 60 (exp_a)]
-    RESTA_TK    [reduce usando la regla 60 (exp_a)]
-    MULT_TK     [reduce usando la regla 60 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 60 (exp_a)]
-    MOD_TK      [reduce usando la regla 60 (exp_a)]
-    DIV_TK      [reduce usando la regla 60 (exp_a)]
-    $default    reduce usando la regla 60 (exp_a)
-
-
-Estado 125
-
-   57 exp_a: operando •
-   75 operando: operando • PUNTO_TK operando
-   76         | operando • CORCHETEA_TK expresion CORCHETEC_TK
-   77         | operando • REF_TK
-
-    REF_TK        desplazar e ir al estado 104
-    CORCHETEA_TK  desplazar e ir al estado 105
-    PUNTO_TK      desplazar e ir al estado 106
-
-    $default  reduce usando la regla 57 (exp_a)
-
-
-Estado 126
-
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-   59      | RESTA_TK exp_a •
-
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
-
-    SUMA_TK     [reduce usando la regla 59 (exp_a)]
-    RESTA_TK    [reduce usando la regla 59 (exp_a)]
-    MULT_TK     [reduce usando la regla 59 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 59 (exp_a)]
-    MOD_TK      [reduce usando la regla 59 (exp_a)]
-    DIV_TK      [reduce usando la regla 59 (exp_a)]
-    $default    reduce usando la regla 59 (exp_a)
-
-
-Estado 127
-
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-
-
-Estado 128
-
-   47 expresion: exp_a •
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-   56      | PARENTESISA_TK exp_a • PARENTESISC_TK
-
-    SUMA_TK         desplazar e ir al estado 139
-    RESTA_TK        desplazar e ir al estado 140
-    MULT_TK         desplazar e ir al estado 141
-    DIVARIT_TK      desplazar e ir al estado 142
-    MOD_TK          desplazar e ir al estado 143
-    DIV_TK          desplazar e ir al estado 144
-    PARENTESISC_TK  desplazar e ir al estado 173
+    SUMA_TK         desplazar e ir al estado 134
+    RESTA_TK        desplazar e ir al estado 135
+    MULT_TK         desplazar e ir al estado 136
+    DIVARIT_TK      desplazar e ir al estado 137
+    MOD_TK          desplazar e ir al estado 138
+    DIV_TK          desplazar e ir al estado 139
+    PARENTESISC_TK  desplazar e ir al estado 168
+    Y_TK            desplazar e ir al estado 140
+    O_TK            desplazar e ir al estado 141
 
     $default  reduce usando la regla 47 (expresion)
 
 
-Estado 129
+Estado 125
 
-   48 expresion: exp_b •
-   61 exp_b: exp_b • Y_TK exp_b
-   62      | exp_b • O_TK exp_b
-   73      | PARENTESISA_TK exp_b • PARENTESISC_TK
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
+   62    | NO_TK exp •
 
-    PARENTESISC_TK  desplazar e ir al estado 174
-    Y_TK            desplazar e ir al estado 145
-    O_TK            desplazar e ir al estado 146
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    $default  reduce usando la regla 48 (expresion)
-
-
-Estado 130
-
-   48 expresion: exp_b •
-   61 exp_b: exp_b • Y_TK exp_b
-   62      | exp_b • O_TK exp_b
-   63      | NO_TK exp_b •
-
-    Y_TK  desplazar e ir al estado 145
-    O_TK  desplazar e ir al estado 146
-
-    IGUAL_TK       reduce usando la regla 48 (expresion)
-    IGUAL_TK       [reduce usando la regla 63 (exp_b)]
-    Y_TK           [reduce usando la regla 63 (exp_b)]
-    O_TK           [reduce usando la regla 63 (exp_b)]
-    MENOR_TK       reduce usando la regla 48 (expresion)
-    MENOR_TK       [reduce usando la regla 63 (exp_b)]
-    MAYOR_TK       reduce usando la regla 48 (expresion)
-    MAYOR_TK       [reduce usando la regla 63 (exp_b)]
-    MENORIGUAL_TK  reduce usando la regla 48 (expresion)
-    MENORIGUAL_TK  [reduce usando la regla 63 (exp_b)]
-    MAYORIGUAL_TK  reduce usando la regla 48 (expresion)
-    MAYORIGUAL_TK  [reduce usando la regla 63 (exp_b)]
-    DIFERENTE_TK   reduce usando la regla 48 (expresion)
-    DIFERENTE_TK   [reduce usando la regla 63 (exp_b)]
-    $default       reduce usando la regla 63 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 62 (exp)]
+    SUMA_TK        [reduce usando la regla 62 (exp)]
+    RESTA_TK       [reduce usando la regla 62 (exp)]
+    MULT_TK        [reduce usando la regla 62 (exp)]
+    DIVARIT_TK     [reduce usando la regla 62 (exp)]
+    MOD_TK         [reduce usando la regla 62 (exp)]
+    DIV_TK         [reduce usando la regla 62 (exp)]
+    Y_TK           [reduce usando la regla 62 (exp)]
+    O_TK           [reduce usando la regla 62 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 62 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 62 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 62 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 62 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 62 (exp)]
+    $default       reduce usando la regla 62 (exp)
 
 
-Estado 131
+Estado 126
 
    18 lista_d_tipo: IDENTIFICADOR_TK IGUAL_TK d_tipo PUNTOYCOMA_TK • lista_d_tipo
 
@@ -1958,14 +1902,14 @@ Estado 131
 
     $default  reduce usando la regla 19 (lista_d_tipo)
 
-    lista_d_tipo  ir al estado 175
+    lista_d_tipo  ir al estado 169
 
 
-Estado 132
+Estado 127
 
    23 d_tipo: expresion_t DOBLEPUNTO_TK • expresion_t
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
     LITERAL_TK        desplazar e ir al estado 71
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
@@ -1974,20 +1918,114 @@ Estado 132
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion_t  ir al estado 176
+    expresion_t  ir al estado 170
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
+
+
+Estado 128
+
+   67 exp: expresion IGUAL_TK • expresion
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 171
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 129
+
+   65 exp: expresion MENOR_TK • expresion
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 172
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 130
+
+   66 exp: expresion MAYOR_TK • expresion
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 173
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 131
+
+   70 exp: expresion MENORIGUAL_TK • expresion
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 174
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 132
+
+   69 exp: expresion MAYORIGUAL_TK • expresion
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 175
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 133
 
-   69 exp_b: expresion IGUAL_TK • expresion
+   68 exp: expresion DIFERENTE_TK • expresion
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -1995,19 +2033,18 @@ Estado 133
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 177
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 176
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 134
 
-   67 exp_b: expresion MENOR_TK • expresion
+   49 exp: exp SUMA_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2015,19 +2052,18 @@ Estado 134
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 178
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 177
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 135
 
-   68 exp_b: expresion MAYOR_TK • expresion
+   50 exp: exp RESTA_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2035,19 +2071,18 @@ Estado 135
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 179
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 178
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 136
 
-   72 exp_b: expresion MENORIGUAL_TK • expresion
+   51 exp: exp MULT_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2055,19 +2090,18 @@ Estado 136
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 180
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 179
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 137
 
-   71 exp_b: expresion MAYORIGUAL_TK • expresion
+   52 exp: exp DIVARIT_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2075,19 +2109,18 @@ Estado 137
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 181
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 180
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 138
 
-   70 exp_b: expresion DIFERENTE_TK • expresion
+   53 exp: exp MOD_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2095,138 +2128,70 @@ Estado 138
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 182
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 121
+    exp         ir al estado 181
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 139
 
-   50 exp_a: exp_a SUMA_TK • exp_a
+   54 exp: exp DIV_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
 
-    exp_a     ir al estado 183
-    operando  ir al estado 125
+    expresion   ir al estado 121
+    exp         ir al estado 182
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 140
 
-   51 exp_a: exp_a RESTA_TK • exp_a
+   60 exp: exp Y_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
 
-    exp_a     ir al estado 184
-    operando  ir al estado 125
+    expresion   ir al estado 121
+    exp         ir al estado 183
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 141
 
-   52 exp_a: exp_a MULT_TK • exp_a
+   61 exp: exp O_TK • exp
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
 
-    exp_a     ir al estado 185
-    operando  ir al estado 125
+    expresion   ir al estado 121
+    exp         ir al estado 184
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 142
-
-   53 exp_a: exp_a DIVARIT_TK • exp_a
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
-
-    exp_a     ir al estado 186
-    operando  ir al estado 125
-
-
-Estado 143
-
-   54 exp_a: exp_a MOD_TK • exp_a
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
-
-    exp_a     ir al estado 187
-    operando  ir al estado 125
-
-
-Estado 144
-
-   55 exp_a: exp_a DIV_TK • exp_a
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 122
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 123
-
-    exp_a     ir al estado 188
-    operando  ir al estado 125
-
-
-Estado 145
-
-   61 exp_b: exp_b Y_TK • exp_b
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    expresion   ir al estado 127
-    exp_a       ir al estado 87
-    exp_b       ir al estado 189
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
-
-
-Estado 146
-
-   62 exp_b: exp_b O_TK • exp_b
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    expresion   ir al estado 127
-    exp_a       ir al estado 87
-    exp_b       ir al estado 190
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
-
-
-Estado 147
 
    35 lista_d_cte: IDENTIFICADOR_TK IGUAL_TK LITERAL_TK PUNTOYCOMA_TK • lista_d_cte
 
@@ -2234,245 +2199,251 @@ Estado 147
 
     $default  reduce usando la regla 36 (lista_d_cte)
 
-    lista_d_cte  ir al estado 191
+    lista_d_cte  ir al estado 185
 
 
-Estado 148
+Estado 143
 
    39 lista_id: IDENTIFICADOR_TK COMA_TK lista_id •
 
     $default  reduce usando la regla 39 (lista_id)
 
 
-Estado 149
+Estado 144
 
    17 declaracion_var: VAR_TK lista_d_var FVAR_TK PUNTOYCOMA_TK •
 
     $default  reduce usando la regla 17 (declaracion_var)
 
 
-Estado 150
+Estado 145
 
    37 lista_d_var: lista_id DOSPUNTOS_TK d_tipo • PUNTOYCOMA_TK lista_d_var
 
-    PUNTOYCOMA_TK  desplazar e ir al estado 192
+    PUNTOYCOMA_TK  desplazar e ir al estado 186
+
+
+Estado 146
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+  101 l_ll: expresion • COMA_TK l_ll
+  102     | expresion •
+
+    IGUAL_TK       desplazar e ir al estado 128
+    COMA_TK        desplazar e ir al estado 187
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    $default  reduce usando la regla 102 (l_ll)
+
+
+Estado 147
+
+   99 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll • PARENTESISC_TK
+
+    PARENTESISC_TK  desplazar e ir al estado 188
+
+
+Estado 148
+
+   83 alternativa: SI_TK expresion FLECHA_TK • instrucciones lista_opciones FSI_TK
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 39
+    CONTINUAR_TK      desplazar e ir al estado 40
+    SI_TK             desplazar e ir al estado 41
+    MIENTRAS_TK       desplazar e ir al estado 42
+    PARA_TK           desplazar e ir al estado 43
+
+    operando       ir al estado 44
+    instrucciones  ir al estado 189
+    instruccion    ir al estado 46
+    asignacion     ir al estado 47
+    alternativa    ir al estado 48
+    iteracion      ir al estado 49
+    it_cota_exp    ir al estado 50
+    it_cota_fija   ir al estado 51
+    accion_ll      ir al estado 52
+
+
+Estado 149
+
+   88 it_cota_exp: MIENTRAS_TK expresion HACER_TK • instrucciones FMIENTRAS_TK
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 39
+    CONTINUAR_TK      desplazar e ir al estado 40
+    SI_TK             desplazar e ir al estado 41
+    MIENTRAS_TK       desplazar e ir al estado 42
+    PARA_TK           desplazar e ir al estado 43
+
+    operando       ir al estado 44
+    instrucciones  ir al estado 190
+    instruccion    ir al estado 46
+    asignacion     ir al estado 47
+    alternativa    ir al estado 48
+    iteracion      ir al estado 49
+    it_cota_exp    ir al estado 50
+    it_cota_fija   ir al estado 51
+    accion_ll      ir al estado 52
+
+
+Estado 150
+
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK • expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 191
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
 Estado 151
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-  104 l_ll: expresion • COMA_TK l_ll
-  105     | expresion •
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   73 operando: operando CORCHETEA_TK expresion • CORCHETEC_TK
 
-    IGUAL_TK       desplazar e ir al estado 133
-    COMA_TK        desplazar e ir al estado 193
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-
-    $default  reduce usando la regla 105 (l_ll)
+    IGUAL_TK       desplazar e ir al estado 128
+    CORCHETEC_TK   desplazar e ir al estado 192
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
 
 
 Estado 152
 
-  102 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll • PARENTESISC_TK
+   71 operando: IDENTIFICADOR_TK •
 
-    PARENTESISC_TK  desplazar e ir al estado 194
+    $default  reduce usando la regla 71 (operando)
 
 
 Estado 153
 
-   86 alternativa: SI_TK expresion FLECHA_TK • instrucciones lista_opciones FSI_TK
+   72 operando: operando • PUNTO_TK operando
+   72         | operando PUNTO_TK operando •
+   73         | operando • CORCHETEA_TK expresion CORCHETEC_TK
+   74         | operando • REF_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 39
-    CONTINUAR_TK      desplazar e ir al estado 40
-    SI_TK             desplazar e ir al estado 41
-    MIENTRAS_TK       desplazar e ir al estado 42
-    PARA_TK           desplazar e ir al estado 43
+    REF_TK        desplazar e ir al estado 103
+    CORCHETEA_TK  desplazar e ir al estado 104
+    PUNTO_TK      desplazar e ir al estado 105
 
-    operando       ir al estado 44
-    instrucciones  ir al estado 195
-    instruccion    ir al estado 46
-    asignacion     ir al estado 47
-    alternativa    ir al estado 48
-    iteracion      ir al estado 49
-    it_cota_exp    ir al estado 50
-    it_cota_fija   ir al estado 51
-    accion_ll      ir al estado 52
+    REF_TK        [reduce usando la regla 72 (operando)]
+    CORCHETEA_TK  [reduce usando la regla 72 (operando)]
+    PUNTO_TK      [reduce usando la regla 72 (operando)]
+    $default      reduce usando la regla 72 (operando)
 
 
 Estado 154
 
-   91 it_cota_exp: MIENTRAS_TK expresion HACER_TK • instrucciones FMIENTRAS_TK
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   82 asignacion: operando ASIGNACION_TK expresion •
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 39
-    CONTINUAR_TK      desplazar e ir al estado 40
-    SI_TK             desplazar e ir al estado 41
-    MIENTRAS_TK       desplazar e ir al estado 42
-    PARA_TK           desplazar e ir al estado 43
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
 
-    operando       ir al estado 44
-    instrucciones  ir al estado 196
-    instruccion    ir al estado 46
-    asignacion     ir al estado 47
-    alternativa    ir al estado 48
-    iteracion      ir al estado 49
-    it_cota_exp    ir al estado 50
-    it_cota_fija   ir al estado 51
-    accion_ll      ir al estado 52
+    $default  reduce usando la regla 82 (asignacion)
 
 
 Estado 155
 
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK • expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+   75 instrucciones: instruccion PUNTOYCOMA_TK instrucciones •
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    expresion   ir al estado 197
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    $default  reduce usando la regla 75 (instrucciones)
 
 
 Estado 156
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   76 operando: operando CORCHETEA_TK expresion • CORCHETEC_TK
+   96 d_p_form: ENT_TK • lista_id DOSPUNTOS_TK d_tipo
 
-    IGUAL_TK       desplazar e ir al estado 133
-    CORCHETEC_TK   desplazar e ir al estado 198
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    IDENTIFICADOR_TK  desplazar e ir al estado 34
+
+    lista_id  ir al estado 193
 
 
 Estado 157
 
-   75 operando: operando • PUNTO_TK operando
-   75         | operando PUNTO_TK operando •
-   76         | operando • CORCHETEA_TK expresion CORCHETEC_TK
-   77         | operando • REF_TK
+   97 d_p_form: SAL_TK • lista_id DOSPUNTOS_TK d_tipo
 
-    REF_TK        desplazar e ir al estado 104
-    CORCHETEA_TK  desplazar e ir al estado 105
-    PUNTO_TK      desplazar e ir al estado 106
+    IDENTIFICADOR_TK  desplazar e ir al estado 34
 
-    REF_TK        [reduce usando la regla 75 (operando)]
-    CORCHETEA_TK  [reduce usando la regla 75 (operando)]
-    PUNTO_TK      [reduce usando la regla 75 (operando)]
-    $default      reduce usando la regla 75 (operando)
+    lista_id  ir al estado 194
 
 
 Estado 158
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   85 asignacion: operando ASIGNACION_TK expresion •
+   98 d_p_form: ES_TK • lista_id DOSPUNTOS_TK d_tipo
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    IDENTIFICADOR_TK  desplazar e ir al estado 34
 
-    $default  reduce usando la regla 85 (asignacion)
+    lista_id  ir al estado 195
 
 
 Estado 159
 
-   78 instrucciones: instruccion PUNTOYCOMA_TK instrucciones •
+   92 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form • PARENTESISC_TK PUNTOYCOMA_TK
 
-    $default  reduce usando la regla 78 (instrucciones)
+    PARENTESISC_TK  desplazar e ir al estado 196
 
 
 Estado 160
 
-   99 d_p_form: ENT_TK • lista_id DOSPUNTOS_TK d_tipo
+   94 d_par_form: d_p_form • PUNTOYCOMA_TK d_par_form
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 34
-
-    lista_id  ir al estado 199
+    PUNTOYCOMA_TK  desplazar e ir al estado 197
 
 
 Estado 161
 
-  100 d_p_form: SAL_TK • lista_id DOSPUNTOS_TK d_tipo
+   90 accion_d: ACCION_TK a_cabecera bloque FACCION_TK •
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 34
-
-    lista_id  ir al estado 200
+    $default  reduce usando la regla 90 (accion_d)
 
 
 Estado 162
 
-  101 d_p_form: ES_TK • lista_id DOSPUNTOS_TK d_tipo
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var • PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 34
-
-    lista_id  ir al estado 201
+    PARENTESISC_TK  desplazar e ir al estado 198
 
 
 Estado 163
 
-   95 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form • PARENTESISC_TK PUNTOYCOMA_TK
+   91 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK • expresion FFUNCION_TK
 
-    PARENTESISC_TK  desplazar e ir al estado 202
-
-
-Estado 164
-
-   97 d_par_form: d_p_form • PUNTOYCOMA_TK d_par_form
-
-    PUNTOYCOMA_TK  desplazar e ir al estado 203
-
-
-Estado 165
-
-   93 accion_d: ACCION_TK a_cabecera bloque FACCION_TK •
-
-    $default  reduce usando la regla 93 (accion_d)
-
-
-Estado 166
-
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var • PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK
-
-    PARENTESISC_TK  desplazar e ir al estado 204
-
-
-Estado 167
-
-   94 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK • expresion FFUNCION_TK
-
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2480,21 +2451,20 @@ Estado 167
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 205
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    expresion   ir al estado 199
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
 
 
-Estado 168
+Estado 164
 
-  103 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll • PARENTESISC_TK
+  100 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll • PARENTESISC_TK
 
-    PARENTESISC_TK  desplazar e ir al estado 206
+    PARENTESISC_TK  desplazar e ir al estado 200
 
 
-Estado 169
+Estado 165
 
    28 lista_campos: IDENTIFICADOR_TK DOSPUNTOS_TK • d_tipo PUNTOYCOMA_TK lista_campos
 
@@ -2515,451 +2485,574 @@ Estado 169
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    d_tipo       ir al estado 207
+    d_tipo       ir al estado 201
     expresion_t  ir al estado 84
     tipo_base    ir al estado 85
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
-Estado 170
+Estado 166
 
    20 d_tipo: TUPLA_TK lista_campos FTUPLA_TK •
 
     $default  reduce usando la regla 20 (d_tipo)
 
 
-Estado 171
+Estado 167
 
    21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t • DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo
 
-    DOBLEPUNTO_TK  desplazar e ir al estado 208
+    DOBLEPUNTO_TK  desplazar e ir al estado 202
 
 
-Estado 172
+Estado 168
 
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-   56      | PARENTESISA_TK exp_a • PARENTESISC_TK
+   55 exp: PARENTESISA_TK exp PARENTESISC_TK •
 
-    SUMA_TK         desplazar e ir al estado 139
-    RESTA_TK        desplazar e ir al estado 140
-    MULT_TK         desplazar e ir al estado 141
-    DIVARIT_TK      desplazar e ir al estado 142
-    MOD_TK          desplazar e ir al estado 143
-    DIV_TK          desplazar e ir al estado 144
-    PARENTESISC_TK  desplazar e ir al estado 173
+    $default  reduce usando la regla 55 (exp)
 
 
-Estado 173
-
-   56 exp_a: PARENTESISA_TK exp_a PARENTESISC_TK •
-
-    $default  reduce usando la regla 56 (exp_a)
-
-
-Estado 174
-
-   73 exp_b: PARENTESISA_TK exp_b PARENTESISC_TK •
-
-    $default  reduce usando la regla 73 (exp_b)
-
-
-Estado 175
+Estado 169
 
    18 lista_d_tipo: IDENTIFICADOR_TK IGUAL_TK d_tipo PUNTOYCOMA_TK lista_d_tipo •
 
     $default  reduce usando la regla 18 (lista_d_tipo)
 
 
-Estado 176
+Estado 170
 
    23 d_tipo: expresion_t DOBLEPUNTO_TK expresion_t •
 
     $default  reduce usando la regla 23 (d_tipo)
 
 
+Estado 171
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   67    | expresion IGUAL_TK expresion •
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    IGUAL_TK       [reduce usando la regla 67 (exp)]
+    MENOR_TK       [reduce usando la regla 67 (exp)]
+    MAYOR_TK       [reduce usando la regla 67 (exp)]
+    MENORIGUAL_TK  [reduce usando la regla 67 (exp)]
+    MAYORIGUAL_TK  [reduce usando la regla 67 (exp)]
+    DIFERENTE_TK   [reduce usando la regla 67 (exp)]
+    $default       reduce usando la regla 67 (exp)
+
+
+Estado 172
+
+   65 exp: expresion • MENOR_TK expresion
+   65    | expresion MENOR_TK expresion •
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    IGUAL_TK       [reduce usando la regla 65 (exp)]
+    MENOR_TK       [reduce usando la regla 65 (exp)]
+    MAYOR_TK       [reduce usando la regla 65 (exp)]
+    MENORIGUAL_TK  [reduce usando la regla 65 (exp)]
+    MAYORIGUAL_TK  [reduce usando la regla 65 (exp)]
+    DIFERENTE_TK   [reduce usando la regla 65 (exp)]
+    $default       reduce usando la regla 65 (exp)
+
+
+Estado 173
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   66    | expresion MAYOR_TK expresion •
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    IGUAL_TK       [reduce usando la regla 66 (exp)]
+    MENOR_TK       [reduce usando la regla 66 (exp)]
+    MAYOR_TK       [reduce usando la regla 66 (exp)]
+    MENORIGUAL_TK  [reduce usando la regla 66 (exp)]
+    MAYORIGUAL_TK  [reduce usando la regla 66 (exp)]
+    DIFERENTE_TK   [reduce usando la regla 66 (exp)]
+    $default       reduce usando la regla 66 (exp)
+
+
+Estado 174
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   70    | expresion MENORIGUAL_TK expresion •
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    IGUAL_TK       [reduce usando la regla 70 (exp)]
+    MENOR_TK       [reduce usando la regla 70 (exp)]
+    MAYOR_TK       [reduce usando la regla 70 (exp)]
+    MENORIGUAL_TK  [reduce usando la regla 70 (exp)]
+    MAYORIGUAL_TK  [reduce usando la regla 70 (exp)]
+    DIFERENTE_TK   [reduce usando la regla 70 (exp)]
+    $default       reduce usando la regla 70 (exp)
+
+
+Estado 175
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   69    | expresion MAYORIGUAL_TK expresion •
+   70    | expresion • MENORIGUAL_TK expresion
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    IGUAL_TK       [reduce usando la regla 69 (exp)]
+    MENOR_TK       [reduce usando la regla 69 (exp)]
+    MAYOR_TK       [reduce usando la regla 69 (exp)]
+    MENORIGUAL_TK  [reduce usando la regla 69 (exp)]
+    MAYORIGUAL_TK  [reduce usando la regla 69 (exp)]
+    DIFERENTE_TK   [reduce usando la regla 69 (exp)]
+    $default       reduce usando la regla 69 (exp)
+
+
+Estado 176
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   68    | expresion DIFERENTE_TK expresion •
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+
+    IGUAL_TK       [reduce usando la regla 68 (exp)]
+    MENOR_TK       [reduce usando la regla 68 (exp)]
+    MAYOR_TK       [reduce usando la regla 68 (exp)]
+    MENORIGUAL_TK  [reduce usando la regla 68 (exp)]
+    MAYORIGUAL_TK  [reduce usando la regla 68 (exp)]
+    DIFERENTE_TK   [reduce usando la regla 68 (exp)]
+    $default       reduce usando la regla 68 (exp)
+
+
 Estado 177
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   69      | expresion IGUAL_TK expresion •
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   49    | exp SUMA_TK exp •
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    IGUAL_TK       [reduce usando la regla 69 (exp_b)]
-    MENOR_TK       [reduce usando la regla 69 (exp_b)]
-    MAYOR_TK       [reduce usando la regla 69 (exp_b)]
-    MENORIGUAL_TK  [reduce usando la regla 69 (exp_b)]
-    MAYORIGUAL_TK  [reduce usando la regla 69 (exp_b)]
-    DIFERENTE_TK   [reduce usando la regla 69 (exp_b)]
-    $default       reduce usando la regla 69 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 49 (exp)]
+    SUMA_TK        [reduce usando la regla 49 (exp)]
+    RESTA_TK       [reduce usando la regla 49 (exp)]
+    MULT_TK        [reduce usando la regla 49 (exp)]
+    DIVARIT_TK     [reduce usando la regla 49 (exp)]
+    MOD_TK         [reduce usando la regla 49 (exp)]
+    DIV_TK         [reduce usando la regla 49 (exp)]
+    Y_TK           [reduce usando la regla 49 (exp)]
+    O_TK           [reduce usando la regla 49 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 49 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 49 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 49 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 49 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 49 (exp)]
+    $default       reduce usando la regla 49 (exp)
 
 
 Estado 178
 
-   67 exp_b: expresion • MENOR_TK expresion
-   67      | expresion MENOR_TK expresion •
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   50    | exp RESTA_TK exp •
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    IGUAL_TK       [reduce usando la regla 67 (exp_b)]
-    MENOR_TK       [reduce usando la regla 67 (exp_b)]
-    MAYOR_TK       [reduce usando la regla 67 (exp_b)]
-    MENORIGUAL_TK  [reduce usando la regla 67 (exp_b)]
-    MAYORIGUAL_TK  [reduce usando la regla 67 (exp_b)]
-    DIFERENTE_TK   [reduce usando la regla 67 (exp_b)]
-    $default       reduce usando la regla 67 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 50 (exp)]
+    SUMA_TK        [reduce usando la regla 50 (exp)]
+    RESTA_TK       [reduce usando la regla 50 (exp)]
+    MULT_TK        [reduce usando la regla 50 (exp)]
+    DIVARIT_TK     [reduce usando la regla 50 (exp)]
+    MOD_TK         [reduce usando la regla 50 (exp)]
+    DIV_TK         [reduce usando la regla 50 (exp)]
+    Y_TK           [reduce usando la regla 50 (exp)]
+    O_TK           [reduce usando la regla 50 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 50 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 50 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 50 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 50 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 50 (exp)]
+    $default       reduce usando la regla 50 (exp)
 
 
 Estado 179
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   68      | expresion MAYOR_TK expresion •
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   51    | exp MULT_TK exp •
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    IGUAL_TK       [reduce usando la regla 68 (exp_b)]
-    MENOR_TK       [reduce usando la regla 68 (exp_b)]
-    MAYOR_TK       [reduce usando la regla 68 (exp_b)]
-    MENORIGUAL_TK  [reduce usando la regla 68 (exp_b)]
-    MAYORIGUAL_TK  [reduce usando la regla 68 (exp_b)]
-    DIFERENTE_TK   [reduce usando la regla 68 (exp_b)]
-    $default       reduce usando la regla 68 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 51 (exp)]
+    SUMA_TK        [reduce usando la regla 51 (exp)]
+    RESTA_TK       [reduce usando la regla 51 (exp)]
+    MULT_TK        [reduce usando la regla 51 (exp)]
+    DIVARIT_TK     [reduce usando la regla 51 (exp)]
+    MOD_TK         [reduce usando la regla 51 (exp)]
+    DIV_TK         [reduce usando la regla 51 (exp)]
+    Y_TK           [reduce usando la regla 51 (exp)]
+    O_TK           [reduce usando la regla 51 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 51 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 51 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 51 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 51 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 51 (exp)]
+    $default       reduce usando la regla 51 (exp)
 
 
 Estado 180
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   72      | expresion MENORIGUAL_TK expresion •
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   52    | exp DIVARIT_TK exp •
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    IGUAL_TK       [reduce usando la regla 72 (exp_b)]
-    MENOR_TK       [reduce usando la regla 72 (exp_b)]
-    MAYOR_TK       [reduce usando la regla 72 (exp_b)]
-    MENORIGUAL_TK  [reduce usando la regla 72 (exp_b)]
-    MAYORIGUAL_TK  [reduce usando la regla 72 (exp_b)]
-    DIFERENTE_TK   [reduce usando la regla 72 (exp_b)]
-    $default       reduce usando la regla 72 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 52 (exp)]
+    SUMA_TK        [reduce usando la regla 52 (exp)]
+    RESTA_TK       [reduce usando la regla 52 (exp)]
+    MULT_TK        [reduce usando la regla 52 (exp)]
+    DIVARIT_TK     [reduce usando la regla 52 (exp)]
+    MOD_TK         [reduce usando la regla 52 (exp)]
+    DIV_TK         [reduce usando la regla 52 (exp)]
+    Y_TK           [reduce usando la regla 52 (exp)]
+    O_TK           [reduce usando la regla 52 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 52 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 52 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 52 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 52 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 52 (exp)]
+    $default       reduce usando la regla 52 (exp)
 
 
 Estado 181
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   71      | expresion MAYORIGUAL_TK expresion •
-   72      | expresion • MENORIGUAL_TK expresion
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   53    | exp MOD_TK exp •
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    IGUAL_TK       [reduce usando la regla 71 (exp_b)]
-    MENOR_TK       [reduce usando la regla 71 (exp_b)]
-    MAYOR_TK       [reduce usando la regla 71 (exp_b)]
-    MENORIGUAL_TK  [reduce usando la regla 71 (exp_b)]
-    MAYORIGUAL_TK  [reduce usando la regla 71 (exp_b)]
-    DIFERENTE_TK   [reduce usando la regla 71 (exp_b)]
-    $default       reduce usando la regla 71 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 53 (exp)]
+    SUMA_TK        [reduce usando la regla 53 (exp)]
+    RESTA_TK       [reduce usando la regla 53 (exp)]
+    MULT_TK        [reduce usando la regla 53 (exp)]
+    DIVARIT_TK     [reduce usando la regla 53 (exp)]
+    MOD_TK         [reduce usando la regla 53 (exp)]
+    DIV_TK         [reduce usando la regla 53 (exp)]
+    Y_TK           [reduce usando la regla 53 (exp)]
+    O_TK           [reduce usando la regla 53 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 53 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 53 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 53 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 53 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 53 (exp)]
+    $default       reduce usando la regla 53 (exp)
 
 
 Estado 182
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   70      | expresion DIFERENTE_TK expresion •
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   54    | exp DIV_TK exp •
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    IGUAL_TK       [reduce usando la regla 70 (exp_b)]
-    MENOR_TK       [reduce usando la regla 70 (exp_b)]
-    MAYOR_TK       [reduce usando la regla 70 (exp_b)]
-    MENORIGUAL_TK  [reduce usando la regla 70 (exp_b)]
-    MAYORIGUAL_TK  [reduce usando la regla 70 (exp_b)]
-    DIFERENTE_TK   [reduce usando la regla 70 (exp_b)]
-    $default       reduce usando la regla 70 (exp_b)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 54 (exp)]
+    SUMA_TK        [reduce usando la regla 54 (exp)]
+    RESTA_TK       [reduce usando la regla 54 (exp)]
+    MULT_TK        [reduce usando la regla 54 (exp)]
+    DIVARIT_TK     [reduce usando la regla 54 (exp)]
+    MOD_TK         [reduce usando la regla 54 (exp)]
+    DIV_TK         [reduce usando la regla 54 (exp)]
+    Y_TK           [reduce usando la regla 54 (exp)]
+    O_TK           [reduce usando la regla 54 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 54 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 54 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 54 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 54 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 54 (exp)]
+    $default       reduce usando la regla 54 (exp)
 
 
 Estado 183
 
-   50 exp_a: exp_a • SUMA_TK exp_a
-   50      | exp_a SUMA_TK exp_a •
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   60    | exp Y_TK exp •
+   61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    SUMA_TK     [reduce usando la regla 50 (exp_a)]
-    RESTA_TK    [reduce usando la regla 50 (exp_a)]
-    MULT_TK     [reduce usando la regla 50 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 50 (exp_a)]
-    MOD_TK      [reduce usando la regla 50 (exp_a)]
-    DIV_TK      [reduce usando la regla 50 (exp_a)]
-    $default    reduce usando la regla 50 (exp_a)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 60 (exp)]
+    SUMA_TK        [reduce usando la regla 60 (exp)]
+    RESTA_TK       [reduce usando la regla 60 (exp)]
+    MULT_TK        [reduce usando la regla 60 (exp)]
+    DIVARIT_TK     [reduce usando la regla 60 (exp)]
+    MOD_TK         [reduce usando la regla 60 (exp)]
+    DIV_TK         [reduce usando la regla 60 (exp)]
+    Y_TK           [reduce usando la regla 60 (exp)]
+    O_TK           [reduce usando la regla 60 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 60 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 60 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 60 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 60 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 60 (exp)]
+    $default       reduce usando la regla 60 (exp)
 
 
 Estado 184
 
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   51      | exp_a RESTA_TK exp_a •
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
+   47 expresion: exp •
+   49 exp: exp • SUMA_TK exp
+   50    | exp • RESTA_TK exp
+   51    | exp • MULT_TK exp
+   52    | exp • DIVARIT_TK exp
+   53    | exp • MOD_TK exp
+   54    | exp • DIV_TK exp
+   60    | exp • Y_TK exp
+   61    | exp • O_TK exp
+   61    | exp O_TK exp •
 
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
+    SUMA_TK     desplazar e ir al estado 134
+    RESTA_TK    desplazar e ir al estado 135
+    MULT_TK     desplazar e ir al estado 136
+    DIVARIT_TK  desplazar e ir al estado 137
+    MOD_TK      desplazar e ir al estado 138
+    DIV_TK      desplazar e ir al estado 139
+    Y_TK        desplazar e ir al estado 140
+    O_TK        desplazar e ir al estado 141
 
-    SUMA_TK     [reduce usando la regla 51 (exp_a)]
-    RESTA_TK    [reduce usando la regla 51 (exp_a)]
-    MULT_TK     [reduce usando la regla 51 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 51 (exp_a)]
-    MOD_TK      [reduce usando la regla 51 (exp_a)]
-    DIV_TK      [reduce usando la regla 51 (exp_a)]
-    $default    reduce usando la regla 51 (exp_a)
+    IGUAL_TK       reduce usando la regla 47 (expresion)
+    IGUAL_TK       [reduce usando la regla 61 (exp)]
+    SUMA_TK        [reduce usando la regla 61 (exp)]
+    RESTA_TK       [reduce usando la regla 61 (exp)]
+    MULT_TK        [reduce usando la regla 61 (exp)]
+    DIVARIT_TK     [reduce usando la regla 61 (exp)]
+    MOD_TK         [reduce usando la regla 61 (exp)]
+    DIV_TK         [reduce usando la regla 61 (exp)]
+    Y_TK           [reduce usando la regla 61 (exp)]
+    O_TK           [reduce usando la regla 61 (exp)]
+    MENOR_TK       reduce usando la regla 47 (expresion)
+    MENOR_TK       [reduce usando la regla 61 (exp)]
+    MAYOR_TK       reduce usando la regla 47 (expresion)
+    MAYOR_TK       [reduce usando la regla 61 (exp)]
+    MENORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MENORIGUAL_TK  [reduce usando la regla 61 (exp)]
+    MAYORIGUAL_TK  reduce usando la regla 47 (expresion)
+    MAYORIGUAL_TK  [reduce usando la regla 61 (exp)]
+    DIFERENTE_TK   reduce usando la regla 47 (expresion)
+    DIFERENTE_TK   [reduce usando la regla 61 (exp)]
+    $default       reduce usando la regla 61 (exp)
 
 
 Estado 185
-
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   52      | exp_a MULT_TK exp_a •
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
-
-    SUMA_TK     [reduce usando la regla 52 (exp_a)]
-    RESTA_TK    [reduce usando la regla 52 (exp_a)]
-    MULT_TK     [reduce usando la regla 52 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 52 (exp_a)]
-    MOD_TK      [reduce usando la regla 52 (exp_a)]
-    DIV_TK      [reduce usando la regla 52 (exp_a)]
-    $default    reduce usando la regla 52 (exp_a)
-
-
-Estado 186
-
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   53      | exp_a DIVARIT_TK exp_a •
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
-
-    SUMA_TK     [reduce usando la regla 53 (exp_a)]
-    RESTA_TK    [reduce usando la regla 53 (exp_a)]
-    MULT_TK     [reduce usando la regla 53 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 53 (exp_a)]
-    MOD_TK      [reduce usando la regla 53 (exp_a)]
-    DIV_TK      [reduce usando la regla 53 (exp_a)]
-    $default    reduce usando la regla 53 (exp_a)
-
-
-Estado 187
-
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   54      | exp_a MOD_TK exp_a •
-   55      | exp_a • DIV_TK exp_a
-
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
-
-    SUMA_TK     [reduce usando la regla 54 (exp_a)]
-    RESTA_TK    [reduce usando la regla 54 (exp_a)]
-    MULT_TK     [reduce usando la regla 54 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 54 (exp_a)]
-    MOD_TK      [reduce usando la regla 54 (exp_a)]
-    DIV_TK      [reduce usando la regla 54 (exp_a)]
-    $default    reduce usando la regla 54 (exp_a)
-
-
-Estado 188
-
-   50 exp_a: exp_a • SUMA_TK exp_a
-   51      | exp_a • RESTA_TK exp_a
-   52      | exp_a • MULT_TK exp_a
-   53      | exp_a • DIVARIT_TK exp_a
-   54      | exp_a • MOD_TK exp_a
-   55      | exp_a • DIV_TK exp_a
-   55      | exp_a DIV_TK exp_a •
-
-    SUMA_TK     desplazar e ir al estado 139
-    RESTA_TK    desplazar e ir al estado 140
-    MULT_TK     desplazar e ir al estado 141
-    DIVARIT_TK  desplazar e ir al estado 142
-    MOD_TK      desplazar e ir al estado 143
-    DIV_TK      desplazar e ir al estado 144
-
-    SUMA_TK     [reduce usando la regla 55 (exp_a)]
-    RESTA_TK    [reduce usando la regla 55 (exp_a)]
-    MULT_TK     [reduce usando la regla 55 (exp_a)]
-    DIVARIT_TK  [reduce usando la regla 55 (exp_a)]
-    MOD_TK      [reduce usando la regla 55 (exp_a)]
-    DIV_TK      [reduce usando la regla 55 (exp_a)]
-    $default    reduce usando la regla 55 (exp_a)
-
-
-Estado 189
-
-   48 expresion: exp_b •
-   61 exp_b: exp_b • Y_TK exp_b
-   61      | exp_b Y_TK exp_b •
-   62      | exp_b • O_TK exp_b
-
-    Y_TK  desplazar e ir al estado 145
-    O_TK  desplazar e ir al estado 146
-
-    IGUAL_TK       reduce usando la regla 48 (expresion)
-    IGUAL_TK       [reduce usando la regla 61 (exp_b)]
-    Y_TK           [reduce usando la regla 61 (exp_b)]
-    O_TK           [reduce usando la regla 61 (exp_b)]
-    MENOR_TK       reduce usando la regla 48 (expresion)
-    MENOR_TK       [reduce usando la regla 61 (exp_b)]
-    MAYOR_TK       reduce usando la regla 48 (expresion)
-    MAYOR_TK       [reduce usando la regla 61 (exp_b)]
-    MENORIGUAL_TK  reduce usando la regla 48 (expresion)
-    MENORIGUAL_TK  [reduce usando la regla 61 (exp_b)]
-    MAYORIGUAL_TK  reduce usando la regla 48 (expresion)
-    MAYORIGUAL_TK  [reduce usando la regla 61 (exp_b)]
-    DIFERENTE_TK   reduce usando la regla 48 (expresion)
-    DIFERENTE_TK   [reduce usando la regla 61 (exp_b)]
-    $default       reduce usando la regla 61 (exp_b)
-
-
-Estado 190
-
-   48 expresion: exp_b •
-   61 exp_b: exp_b • Y_TK exp_b
-   62      | exp_b • O_TK exp_b
-   62      | exp_b O_TK exp_b •
-
-    Y_TK  desplazar e ir al estado 145
-    O_TK  desplazar e ir al estado 146
-
-    IGUAL_TK       reduce usando la regla 48 (expresion)
-    IGUAL_TK       [reduce usando la regla 62 (exp_b)]
-    Y_TK           [reduce usando la regla 62 (exp_b)]
-    O_TK           [reduce usando la regla 62 (exp_b)]
-    MENOR_TK       reduce usando la regla 48 (expresion)
-    MENOR_TK       [reduce usando la regla 62 (exp_b)]
-    MAYOR_TK       reduce usando la regla 48 (expresion)
-    MAYOR_TK       [reduce usando la regla 62 (exp_b)]
-    MENORIGUAL_TK  reduce usando la regla 48 (expresion)
-    MENORIGUAL_TK  [reduce usando la regla 62 (exp_b)]
-    MAYORIGUAL_TK  reduce usando la regla 48 (expresion)
-    MAYORIGUAL_TK  [reduce usando la regla 62 (exp_b)]
-    DIFERENTE_TK   reduce usando la regla 48 (expresion)
-    DIFERENTE_TK   [reduce usando la regla 62 (exp_b)]
-    $default       reduce usando la regla 62 (exp_b)
-
-
-Estado 191
 
    35 lista_d_cte: IDENTIFICADOR_TK IGUAL_TK LITERAL_TK PUNTOYCOMA_TK lista_d_cte •
 
     $default  reduce usando la regla 35 (lista_d_cte)
 
 
-Estado 192
+Estado 186
 
    37 lista_d_var: lista_id DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK • lista_d_var
 
@@ -2967,16 +3060,16 @@ Estado 192
 
     $default  reduce usando la regla 38 (lista_d_var)
 
-    lista_d_var  ir al estado 209
+    lista_d_var  ir al estado 203
     lista_id     ir al estado 36
 
 
-Estado 193
+Estado 187
 
-  104 l_ll: expresion COMA_TK • l_ll
+  101 l_ll: expresion COMA_TK • l_ll
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -2984,154 +3077,153 @@ Estado 193
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    $default  reduce usando la regla 106 (l_ll)
+    $default  reduce usando la regla 103 (l_ll)
 
-    expresion   ir al estado 151
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
-    l_ll        ir al estado 210
+    expresion   ir al estado 146
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+    l_ll        ir al estado 204
+
+
+Estado 188
+
+   99 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK •
+
+    $default  reduce usando la regla 99 (accion_ll)
+
+
+Estado 189
+
+   83 alternativa: SI_TK expresion FLECHA_TK instrucciones • lista_opciones FSI_TK
+
+    CORCHETES_TK  desplazar e ir al estado 205
+
+    $default  reduce usando la regla 85 (lista_opciones)
+
+    lista_opciones  ir al estado 206
+
+
+Estado 190
+
+   88 it_cota_exp: MIENTRAS_TK expresion HACER_TK instrucciones • FMIENTRAS_TK
+
+    FMIENTRAS_TK  desplazar e ir al estado 207
+
+
+Estado 191
+
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion • HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+    HASTA_TK       desplazar e ir al estado 208
+
+
+Estado 192
+
+   73 operando: operando CORCHETEA_TK expresion CORCHETEC_TK •
+
+    $default  reduce usando la regla 73 (operando)
+
+
+Estado 193
+
+   96 d_p_form: ENT_TK lista_id • DOSPUNTOS_TK d_tipo
+
+    DOSPUNTOS_TK  desplazar e ir al estado 209
 
 
 Estado 194
 
-  102 accion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK •
+   97 d_p_form: SAL_TK lista_id • DOSPUNTOS_TK d_tipo
 
-    $default  reduce usando la regla 102 (accion_ll)
+    DOSPUNTOS_TK  desplazar e ir al estado 210
 
 
 Estado 195
 
-   86 alternativa: SI_TK expresion FLECHA_TK instrucciones • lista_opciones FSI_TK
+   98 d_p_form: ES_TK lista_id • DOSPUNTOS_TK d_tipo
 
-    CORCHETES_TK  desplazar e ir al estado 211
-
-    $default  reduce usando la regla 88 (lista_opciones)
-
-    lista_opciones  ir al estado 212
+    DOSPUNTOS_TK  desplazar e ir al estado 211
 
 
 Estado 196
 
-   91 it_cota_exp: MIENTRAS_TK expresion HACER_TK instrucciones • FMIENTRAS_TK
+   92 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form PARENTESISC_TK • PUNTOYCOMA_TK
 
-    FMIENTRAS_TK  desplazar e ir al estado 213
+    PUNTOYCOMA_TK  desplazar e ir al estado 212
 
 
 Estado 197
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion • HASTA_TK expresion HACER_TK instrucciones FPARA_TK
+   94 d_par_form: d_p_form PUNTOYCOMA_TK • d_par_form
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-    HASTA_TK       desplazar e ir al estado 214
+    ENT_TK  desplazar e ir al estado 156
+    SAL_TK  desplazar e ir al estado 157
+    ES_TK   desplazar e ir al estado 158
+
+    $default  reduce usando la regla 95 (d_par_form)
+
+    d_par_form  ir al estado 213
+    d_p_form    ir al estado 160
 
 
 Estado 198
 
-   76 operando: operando CORCHETEA_TK expresion CORCHETEC_TK •
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK • DEV_TK d_tipo PUNTOYCOMA_TK
 
-    $default  reduce usando la regla 76 (operando)
+    DEV_TK  desplazar e ir al estado 214
 
 
 Estado 199
 
-   99 d_p_form: ENT_TK lista_id • DOSPUNTOS_TK d_tipo
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   91 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK expresion • FFUNCION_TK
 
-    DOSPUNTOS_TK  desplazar e ir al estado 215
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+    FFUNCION_TK    desplazar e ir al estado 215
 
 
 Estado 200
 
-  100 d_p_form: SAL_TK lista_id • DOSPUNTOS_TK d_tipo
+  100 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK •
 
-    DOSPUNTOS_TK  desplazar e ir al estado 216
+    $default  reduce usando la regla 100 (funcion_ll)
 
 
 Estado 201
 
-  101 d_p_form: ES_TK lista_id • DOSPUNTOS_TK d_tipo
+   28 lista_campos: IDENTIFICADOR_TK DOSPUNTOS_TK d_tipo • PUNTOYCOMA_TK lista_campos
 
-    DOSPUNTOS_TK  desplazar e ir al estado 217
+    PUNTOYCOMA_TK  desplazar e ir al estado 216
 
 
 Estado 202
 
-   95 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form PARENTESISC_TK • PUNTOYCOMA_TK
-
-    PUNTOYCOMA_TK  desplazar e ir al estado 218
-
-
-Estado 203
-
-   97 d_par_form: d_p_form PUNTOYCOMA_TK • d_par_form
-
-    ENT_TK  desplazar e ir al estado 160
-    SAL_TK  desplazar e ir al estado 161
-    ES_TK   desplazar e ir al estado 162
-
-    $default  reduce usando la regla 98 (d_par_form)
-
-    d_par_form  ir al estado 219
-    d_p_form    ir al estado 164
-
-
-Estado 204
-
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK • DEV_TK d_tipo PUNTOYCOMA_TK
-
-    DEV_TK  desplazar e ir al estado 220
-
-
-Estado 205
-
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   94 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK expresion • FFUNCION_TK
-
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-    FFUNCION_TK    desplazar e ir al estado 221
-
-
-Estado 206
-
-  103 funcion_ll: IDENTIFICADOR_TK PARENTESISA_TK l_ll PARENTESISC_TK •
-
-    $default  reduce usando la regla 103 (funcion_ll)
-
-
-Estado 207
-
-   28 lista_campos: IDENTIFICADOR_TK DOSPUNTOS_TK d_tipo • PUNTOYCOMA_TK lista_campos
-
-    PUNTOYCOMA_TK  desplazar e ir al estado 222
-
-
-Estado 208
-
    21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK • expresion_t CORCHETEC_TK DE_TK d_tipo
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
     LITERAL_TK        desplazar e ir al estado 71
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
@@ -3140,34 +3232,153 @@ Estado 208
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion_t  ir al estado 223
+    expresion_t  ir al estado 217
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
-Estado 209
+Estado 203
 
    37 lista_d_var: lista_id DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_d_var •
 
     $default  reduce usando la regla 37 (lista_d_var)
 
 
+Estado 204
+
+  101 l_ll: expresion COMA_TK l_ll •
+
+    $default  reduce usando la regla 101 (l_ll)
+
+
+Estado 205
+
+   84 lista_opciones: CORCHETES_TK • expresion FLECHA_TK instrucciones lista_opciones
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 218
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 206
+
+   83 alternativa: SI_TK expresion FLECHA_TK instrucciones lista_opciones • FSI_TK
+
+    FSI_TK  desplazar e ir al estado 219
+
+
+Estado 207
+
+   88 it_cota_exp: MIENTRAS_TK expresion HACER_TK instrucciones FMIENTRAS_TK •
+
+    $default  reduce usando la regla 88 (it_cota_exp)
+
+
+Estado 208
+
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK • expresion HACER_TK instrucciones FPARA_TK
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 98
+    LITERAL_TK        desplazar e ir al estado 99
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    expresion   ir al estado 220
+    exp         ir al estado 87
+    operando    ir al estado 88
+    funcion_ll  ir al estado 89
+
+
+Estado 209
+
+   96 d_p_form: ENT_TK lista_id DOSPUNTOS_TK • d_tipo
+
+    IDENTIFICADOR_TK  desplazar e ir al estado 67
+    TUPLA_TK          desplazar e ir al estado 68
+    TABLA_TK          desplazar e ir al estado 69
+    REF_TK            desplazar e ir al estado 70
+    LITERAL_TK        desplazar e ir al estado 71
+    ENTERO_TK         desplazar e ir al estado 72
+    REAL_TK           desplazar e ir al estado 73
+    BOOLEANO_TK       desplazar e ir al estado 74
+    CADENA_TK         desplazar e ir al estado 75
+    CARACTER_TK       desplazar e ir al estado 76
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    d_tipo       ir al estado 221
+    expresion_t  ir al estado 84
+    tipo_base    ir al estado 85
+    expresion    ir al estado 86
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
+
+
 Estado 210
 
-  104 l_ll: expresion COMA_TK l_ll •
+   97 d_p_form: SAL_TK lista_id DOSPUNTOS_TK • d_tipo
 
-    $default  reduce usando la regla 104 (l_ll)
+    IDENTIFICADOR_TK  desplazar e ir al estado 67
+    TUPLA_TK          desplazar e ir al estado 68
+    TABLA_TK          desplazar e ir al estado 69
+    REF_TK            desplazar e ir al estado 70
+    LITERAL_TK        desplazar e ir al estado 71
+    ENTERO_TK         desplazar e ir al estado 72
+    REAL_TK           desplazar e ir al estado 73
+    BOOLEANO_TK       desplazar e ir al estado 74
+    CADENA_TK         desplazar e ir al estado 75
+    CARACTER_TK       desplazar e ir al estado 76
+    SUMA_TK           desplazar e ir al estado 77
+    RESTA_TK          desplazar e ir al estado 78
+    PARENTESISA_TK    desplazar e ir al estado 79
+    NO_TK             desplazar e ir al estado 80
+    VERDADERO_TK      desplazar e ir al estado 81
+    FALSO_TK          desplazar e ir al estado 82
+
+    d_tipo       ir al estado 222
+    expresion_t  ir al estado 84
+    tipo_base    ir al estado 85
+    expresion    ir al estado 86
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
 Estado 211
 
-   87 lista_opciones: CORCHETES_TK • expresion FLECHA_TK instrucciones lista_opciones
+   98 d_p_form: ES_TK lista_id DOSPUNTOS_TK • d_tipo
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 67
+    TUPLA_TK          desplazar e ir al estado 68
+    TABLA_TK          desplazar e ir al estado 69
+    REF_TK            desplazar e ir al estado 70
+    LITERAL_TK        desplazar e ir al estado 71
+    ENTERO_TK         desplazar e ir al estado 72
+    REAL_TK           desplazar e ir al estado 73
+    BOOLEANO_TK       desplazar e ir al estado 74
+    CADENA_TK         desplazar e ir al estado 75
+    CARACTER_TK       desplazar e ir al estado 76
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -3175,33 +3386,43 @@ Estado 211
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 224
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    d_tipo       ir al estado 223
+    expresion_t  ir al estado 84
+    tipo_base    ir al estado 85
+    expresion    ir al estado 86
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
 Estado 212
 
-   86 alternativa: SI_TK expresion FLECHA_TK instrucciones lista_opciones • FSI_TK
+   92 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form PARENTESISC_TK PUNTOYCOMA_TK •
 
-    FSI_TK  desplazar e ir al estado 225
+    $default  reduce usando la regla 92 (a_cabecera)
 
 
 Estado 213
 
-   91 it_cota_exp: MIENTRAS_TK expresion HACER_TK instrucciones FMIENTRAS_TK •
+   94 d_par_form: d_p_form PUNTOYCOMA_TK d_par_form •
 
-    $default  reduce usando la regla 91 (it_cota_exp)
+    $default  reduce usando la regla 94 (d_par_form)
 
 
 Estado 214
 
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK • expresion HACER_TK instrucciones FPARA_TK
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK • d_tipo PUNTOYCOMA_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 99
-    LITERAL_TK        desplazar e ir al estado 100
+    IDENTIFICADOR_TK  desplazar e ir al estado 67
+    TUPLA_TK          desplazar e ir al estado 68
+    TABLA_TK          desplazar e ir al estado 69
+    REF_TK            desplazar e ir al estado 70
+    LITERAL_TK        desplazar e ir al estado 71
+    ENTERO_TK         desplazar e ir al estado 72
+    REAL_TK           desplazar e ir al estado 73
+    BOOLEANO_TK       desplazar e ir al estado 74
+    CADENA_TK         desplazar e ir al estado 75
+    CARACTER_TK       desplazar e ir al estado 76
     SUMA_TK           desplazar e ir al estado 77
     RESTA_TK          desplazar e ir al estado 78
     PARENTESISA_TK    desplazar e ir al estado 79
@@ -3209,266 +3430,130 @@ Estado 214
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    expresion   ir al estado 226
-    exp_a       ir al estado 87
-    exp_b       ir al estado 88
-    operando    ir al estado 89
-    funcion_ll  ir al estado 90
+    d_tipo       ir al estado 224
+    expresion_t  ir al estado 84
+    tipo_base    ir al estado 85
+    expresion    ir al estado 86
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
 Estado 215
 
-   99 d_p_form: ENT_TK lista_id DOSPUNTOS_TK • d_tipo
+   91 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK expresion FFUNCION_TK •
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 67
-    TUPLA_TK          desplazar e ir al estado 68
-    TABLA_TK          desplazar e ir al estado 69
-    REF_TK            desplazar e ir al estado 70
-    LITERAL_TK        desplazar e ir al estado 71
-    ENTERO_TK         desplazar e ir al estado 72
-    REAL_TK           desplazar e ir al estado 73
-    BOOLEANO_TK       desplazar e ir al estado 74
-    CADENA_TK         desplazar e ir al estado 75
-    CARACTER_TK       desplazar e ir al estado 76
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    d_tipo       ir al estado 227
-    expresion_t  ir al estado 84
-    tipo_base    ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    $default  reduce usando la regla 91 (funcion_d)
 
 
 Estado 216
 
-  100 d_p_form: SAL_TK lista_id DOSPUNTOS_TK • d_tipo
+   28 lista_campos: IDENTIFICADOR_TK DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK • lista_campos
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 67
-    TUPLA_TK          desplazar e ir al estado 68
-    TABLA_TK          desplazar e ir al estado 69
-    REF_TK            desplazar e ir al estado 70
-    LITERAL_TK        desplazar e ir al estado 71
-    ENTERO_TK         desplazar e ir al estado 72
-    REAL_TK           desplazar e ir al estado 73
-    BOOLEANO_TK       desplazar e ir al estado 74
-    CADENA_TK         desplazar e ir al estado 75
-    CARACTER_TK       desplazar e ir al estado 76
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
+    IDENTIFICADOR_TK  desplazar e ir al estado 117
 
-    d_tipo       ir al estado 228
-    expresion_t  ir al estado 84
-    tipo_base    ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    $default  reduce usando la regla 29 (lista_campos)
+
+    lista_campos  ir al estado 225
 
 
 Estado 217
 
-  101 d_p_form: ES_TK lista_id DOSPUNTOS_TK • d_tipo
+   21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t • CORCHETEC_TK DE_TK d_tipo
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 67
-    TUPLA_TK          desplazar e ir al estado 68
-    TABLA_TK          desplazar e ir al estado 69
-    REF_TK            desplazar e ir al estado 70
-    LITERAL_TK        desplazar e ir al estado 71
-    ENTERO_TK         desplazar e ir al estado 72
-    REAL_TK           desplazar e ir al estado 73
-    BOOLEANO_TK       desplazar e ir al estado 74
-    CADENA_TK         desplazar e ir al estado 75
-    CARACTER_TK       desplazar e ir al estado 76
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    d_tipo       ir al estado 229
-    expresion_t  ir al estado 84
-    tipo_base    ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    CORCHETEC_TK  desplazar e ir al estado 226
 
 
 Estado 218
 
-   95 a_cabecera: IDENTIFICADOR_TK PARENTESISA_TK d_par_form PARENTESISC_TK PUNTOYCOMA_TK •
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   84 lista_opciones: CORCHETES_TK expresion • FLECHA_TK instrucciones lista_opciones
 
-    $default  reduce usando la regla 95 (a_cabecera)
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+    FLECHA_TK      desplazar e ir al estado 227
 
 
 Estado 219
 
-   97 d_par_form: d_p_form PUNTOYCOMA_TK d_par_form •
+   83 alternativa: SI_TK expresion FLECHA_TK instrucciones lista_opciones FSI_TK •
 
-    $default  reduce usando la regla 97 (d_par_form)
+    $default  reduce usando la regla 83 (alternativa)
 
 
 Estado 220
 
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK • d_tipo PUNTOYCOMA_TK
+   65 exp: expresion • MENOR_TK expresion
+   66    | expresion • MAYOR_TK expresion
+   67    | expresion • IGUAL_TK expresion
+   68    | expresion • DIFERENTE_TK expresion
+   69    | expresion • MAYORIGUAL_TK expresion
+   70    | expresion • MENORIGUAL_TK expresion
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion • HACER_TK instrucciones FPARA_TK
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 67
-    TUPLA_TK          desplazar e ir al estado 68
-    TABLA_TK          desplazar e ir al estado 69
-    REF_TK            desplazar e ir al estado 70
-    LITERAL_TK        desplazar e ir al estado 71
-    ENTERO_TK         desplazar e ir al estado 72
-    REAL_TK           desplazar e ir al estado 73
-    BOOLEANO_TK       desplazar e ir al estado 74
-    CADENA_TK         desplazar e ir al estado 75
-    CARACTER_TK       desplazar e ir al estado 76
-    SUMA_TK           desplazar e ir al estado 77
-    RESTA_TK          desplazar e ir al estado 78
-    PARENTESISA_TK    desplazar e ir al estado 79
-    NO_TK             desplazar e ir al estado 80
-    VERDADERO_TK      desplazar e ir al estado 81
-    FALSO_TK          desplazar e ir al estado 82
-
-    d_tipo       ir al estado 230
-    expresion_t  ir al estado 84
-    tipo_base    ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    IGUAL_TK       desplazar e ir al estado 128
+    MENOR_TK       desplazar e ir al estado 129
+    MAYOR_TK       desplazar e ir al estado 130
+    MENORIGUAL_TK  desplazar e ir al estado 131
+    MAYORIGUAL_TK  desplazar e ir al estado 132
+    DIFERENTE_TK   desplazar e ir al estado 133
+    HACER_TK       desplazar e ir al estado 228
 
 
 Estado 221
 
-   94 funcion_d: FUNCION_TK f_cabecera bloque DEV_TK expresion FFUNCION_TK •
+   96 d_p_form: ENT_TK lista_id DOSPUNTOS_TK d_tipo •
 
-    $default  reduce usando la regla 94 (funcion_d)
+    $default  reduce usando la regla 96 (d_p_form)
 
 
 Estado 222
 
-   28 lista_campos: IDENTIFICADOR_TK DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK • lista_campos
+   97 d_p_form: SAL_TK lista_id DOSPUNTOS_TK d_tipo •
 
-    IDENTIFICADOR_TK  desplazar e ir al estado 118
-
-    $default  reduce usando la regla 29 (lista_campos)
-
-    lista_campos  ir al estado 231
+    $default  reduce usando la regla 97 (d_p_form)
 
 
 Estado 223
 
-   21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t • CORCHETEC_TK DE_TK d_tipo
+   98 d_p_form: ES_TK lista_id DOSPUNTOS_TK d_tipo •
 
-    CORCHETEC_TK  desplazar e ir al estado 232
+    $default  reduce usando la regla 98 (d_p_form)
 
 
 Estado 224
 
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   87 lista_opciones: CORCHETES_TK expresion • FLECHA_TK instrucciones lista_opciones
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo • PUNTOYCOMA_TK
 
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-    FLECHA_TK      desplazar e ir al estado 233
+    PUNTOYCOMA_TK  desplazar e ir al estado 229
 
 
 Estado 225
-
-   86 alternativa: SI_TK expresion FLECHA_TK instrucciones lista_opciones FSI_TK •
-
-    $default  reduce usando la regla 86 (alternativa)
-
-
-Estado 226
-
-   67 exp_b: expresion • MENOR_TK expresion
-   68      | expresion • MAYOR_TK expresion
-   69      | expresion • IGUAL_TK expresion
-   70      | expresion • DIFERENTE_TK expresion
-   71      | expresion • MAYORIGUAL_TK expresion
-   72      | expresion • MENORIGUAL_TK expresion
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion • HACER_TK instrucciones FPARA_TK
-
-    IGUAL_TK       desplazar e ir al estado 133
-    MENOR_TK       desplazar e ir al estado 134
-    MAYOR_TK       desplazar e ir al estado 135
-    MENORIGUAL_TK  desplazar e ir al estado 136
-    MAYORIGUAL_TK  desplazar e ir al estado 137
-    DIFERENTE_TK   desplazar e ir al estado 138
-    HACER_TK       desplazar e ir al estado 234
-
-
-Estado 227
-
-   99 d_p_form: ENT_TK lista_id DOSPUNTOS_TK d_tipo •
-
-    $default  reduce usando la regla 99 (d_p_form)
-
-
-Estado 228
-
-  100 d_p_form: SAL_TK lista_id DOSPUNTOS_TK d_tipo •
-
-    $default  reduce usando la regla 100 (d_p_form)
-
-
-Estado 229
-
-  101 d_p_form: ES_TK lista_id DOSPUNTOS_TK d_tipo •
-
-    $default  reduce usando la regla 101 (d_p_form)
-
-
-Estado 230
-
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo • PUNTOYCOMA_TK
-
-    PUNTOYCOMA_TK  desplazar e ir al estado 235
-
-
-Estado 231
 
    28 lista_campos: IDENTIFICADOR_TK DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_campos •
 
     $default  reduce usando la regla 28 (lista_campos)
 
 
-Estado 232
+Estado 226
 
    21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK • DE_TK d_tipo
 
-    DE_TK  desplazar e ir al estado 236
+    DE_TK  desplazar e ir al estado 230
 
 
-Estado 233
+Estado 227
 
-   87 lista_opciones: CORCHETES_TK expresion FLECHA_TK • instrucciones lista_opciones
+   84 lista_opciones: CORCHETES_TK expresion FLECHA_TK • instrucciones lista_opciones
 
     IDENTIFICADOR_TK  desplazar e ir al estado 39
     CONTINUAR_TK      desplazar e ir al estado 40
@@ -3477,7 +3562,7 @@ Estado 233
     PARA_TK           desplazar e ir al estado 43
 
     operando       ir al estado 44
-    instrucciones  ir al estado 237
+    instrucciones  ir al estado 231
     instruccion    ir al estado 46
     asignacion     ir al estado 47
     alternativa    ir al estado 48
@@ -3487,9 +3572,9 @@ Estado 233
     accion_ll      ir al estado 52
 
 
-Estado 234
+Estado 228
 
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK • instrucciones FPARA_TK
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK • instrucciones FPARA_TK
 
     IDENTIFICADOR_TK  desplazar e ir al estado 39
     CONTINUAR_TK      desplazar e ir al estado 40
@@ -3498,7 +3583,7 @@ Estado 234
     PARA_TK           desplazar e ir al estado 43
 
     operando       ir al estado 44
-    instrucciones  ir al estado 238
+    instrucciones  ir al estado 232
     instruccion    ir al estado 46
     asignacion     ir al estado 47
     alternativa    ir al estado 48
@@ -3508,14 +3593,14 @@ Estado 234
     accion_ll      ir al estado 52
 
 
-Estado 235
+Estado 229
 
-   96 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK •
+   93 f_cabecera: IDENTIFICADOR_TK PARENTESISA_TK lista_d_var PARENTESISC_TK DEV_TK d_tipo PUNTOYCOMA_TK •
 
-    $default  reduce usando la regla 96 (f_cabecera)
+    $default  reduce usando la regla 93 (f_cabecera)
 
 
-Estado 236
+Estado 230
 
    21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK • d_tipo
 
@@ -3536,50 +3621,49 @@ Estado 236
     VERDADERO_TK      desplazar e ir al estado 81
     FALSO_TK          desplazar e ir al estado 82
 
-    d_tipo       ir al estado 239
+    d_tipo       ir al estado 233
     expresion_t  ir al estado 84
     tipo_base    ir al estado 85
     expresion    ir al estado 86
-    exp_a        ir al estado 87
-    exp_b        ir al estado 88
-    operando     ir al estado 89
-    funcion_ll   ir al estado 90
+    exp          ir al estado 87
+    operando     ir al estado 88
+    funcion_ll   ir al estado 89
 
 
-Estado 237
+Estado 231
 
-   87 lista_opciones: CORCHETES_TK expresion FLECHA_TK instrucciones • lista_opciones
+   84 lista_opciones: CORCHETES_TK expresion FLECHA_TK instrucciones • lista_opciones
 
-    CORCHETES_TK  desplazar e ir al estado 211
+    CORCHETES_TK  desplazar e ir al estado 205
 
-    $default  reduce usando la regla 88 (lista_opciones)
+    $default  reduce usando la regla 85 (lista_opciones)
 
-    lista_opciones  ir al estado 240
-
-
-Estado 238
-
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones • FPARA_TK
-
-    FPARA_TK  desplazar e ir al estado 241
+    lista_opciones  ir al estado 234
 
 
-Estado 239
+Estado 232
+
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones • FPARA_TK
+
+    FPARA_TK  desplazar e ir al estado 235
+
+
+Estado 233
 
    21 d_tipo: TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo •
 
     $default  reduce usando la regla 21 (d_tipo)
 
 
-Estado 240
+Estado 234
 
-   87 lista_opciones: CORCHETES_TK expresion FLECHA_TK instrucciones lista_opciones •
+   84 lista_opciones: CORCHETES_TK expresion FLECHA_TK instrucciones lista_opciones •
 
-    $default  reduce usando la regla 87 (lista_opciones)
+    $default  reduce usando la regla 84 (lista_opciones)
 
 
-Estado 241
+Estado 235
 
-   92 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK •
+   89 it_cota_fija: PARA_TK IDENTIFICADOR_TK ASIGNACION_TK expresion HASTA_TK expresion HACER_TK instrucciones FPARA_TK •
 
-    $default  reduce usando la regla 92 (it_cota_fija)
+    $default  reduce usando la regla 89 (it_cota_fija)

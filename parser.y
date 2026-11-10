@@ -213,30 +213,25 @@ decl_sal:
 // EXPRESIONES
 
 expresion:
-    exp_a { }
-    | exp_b { }
+    exp { }
     | funcion_ll { }
 ;
 
-exp_a:
-    exp_a SUMA_TK exp_a { }
-    | exp_a RESTA_TK exp_a { }
-    | exp_a MULT_TK exp_a { }
-    | exp_a DIVARIT_TK exp_a { }
-    | exp_a MOD_TK exp_a { }
-    | exp_a DIV_TK exp_a { }
-    | PARENTESISA_TK exp_a PARENTESISC_TK { }
+exp:
+    exp SUMA_TK exp { }
+    | exp RESTA_TK exp { }
+    | exp MULT_TK exp { }
+    | exp DIVARIT_TK exp { }
+    | exp MOD_TK exp { }
+    | exp DIV_TK exp { }
+    | PARENTESISA_TK exp PARENTESISC_TK { }
     | operando { }
     | LITERAL_TK { }
-    | RESTA_TK exp_a { }
-    | SUMA_TK exp_a { }
-;
-
-exp_b:
-    exp_b Y_TK exp_b { }
-    | exp_b O_TK exp_b { }
-    | NO_TK exp_b { }
-    | operando { }
+    | RESTA_TK exp { }
+    | SUMA_TK exp { }
+    | exp Y_TK exp { }
+    | exp O_TK exp { }
+    | NO_TK exp { }
     | VERDADERO_TK { }
     | FALSO_TK { }
     | expresion MENOR_TK expresion { }
@@ -245,7 +240,6 @@ exp_b:
     | expresion DIFERENTE_TK expresion { }
     | expresion MAYORIGUAL_TK expresion { }
     | expresion MENORIGUAL_TK expresion { }
-    | PARENTESISA_TK exp_b PARENTESISC_TK { }
 ;
 
 operando:
@@ -343,5 +337,4 @@ l_ll:
 ;
 
 %%
-
 
