@@ -21,7 +21,6 @@
 //DECLARAR LOS TOKENS
 
 %token ALGORITMO_TK
-%token ID_TK
 %token PUNTOYCOMA_TK
 %token FALGORITMO_TK
 %token TIPO_TK
@@ -85,9 +84,10 @@
 %token FUNCION_TK
 %token DEV_TK
 %token FFUNCION_TK
-%token COMENTARIO
+%token COMENTARIO_TK
 %token VERDADERO_TK
 %token FALSO_TK
+
 
 //DECLARAR LAS PRECEDENCIAS (LEFT, RIGHT, NONASOC...)
 %left O_TK
@@ -97,21 +97,22 @@
 %left SUMA_TK RESTA_TK
 %left MULT_TK DIVARIT_TK DIV_TK MOD_TK
 %left REF_TK CORCHETEA_TK PUNTO_TK
+%left MENOSU
 %%
 
 
 
 //GRAMATICA LENGUAJE ProAlg
 desc_algoritmo:
-    ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK{ }
+    ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK { }
 ;
 
 cabecera_alg:
-    decl_globales decl_a_f decl_ent_sal COMENTARIO { }
+    decl_globales decl_a_f decl_ent_sal COMENTARIO_TK { }
 ;
 
 bloque_alg:
-    bloque COMENTARIO { }
+    bloque COMENTARIO_TK { }
 ;
 
 decl_globales:
@@ -239,8 +240,8 @@ exp:
     | PARENTESISA_TK exp PARENTESISC_TK { }
     | operando { }
     | LITERAL_TK { }
-    | RESTA_TK exp { }
-    | SUMA_TK exp { }
+    | RESTA_TK exp %prec MENOSU{ }
+    | SUMA_TK exp %prec MENOSU{ }
     | exp Y_TK exp { }
     | exp O_TK exp { }
     | NO_TK exp { }
@@ -349,4 +350,31 @@ l_ll:
 ;
 
 %%
+
+int main(int argc, char **argv){
+	#if defined YYDEBUG
+	yydebug=1;
+	#endif
+	++argv, --argc;
+	if (argc > 0)
+		yyin = fopen(argv[0], "r");
+	else
+		yyin = stdin;
+    int resultado = yyparse();
+
+    if (resultado == 0) {
+        printf("\n[OK] Sintaxis correcta.\n");
+    } else {
+        printf("\n[ERROR] Error de sintaxis.\n");
+    }
+	/*tc = nuevaTablaDeConstantes();
+	yyparse();
+	imprimeTablaDeConstantes(tc);
+	*/
+}
+
+void yyerror(char * s){
+	printf("\tBISON: ERROR, %s\n", s);
+}
+
 

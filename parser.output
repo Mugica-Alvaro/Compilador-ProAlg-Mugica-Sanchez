@@ -17,11 +17,11 @@ Gramática
 
     0 $accept: desc_algoritmo $end
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
 
-    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO_TK
 
-    3 bloque_alg: bloque COMENTARIO
+    3 bloque_alg: bloque COMENTARIO_TK
 
     4 decl_globales: declaracion_tipo decl_globales
     5              | declaracion_const decl_globales
@@ -167,73 +167,73 @@ Terminales con las reglas donde aparecen
     $end (0) 0
     error (256)
     ALGORITMO_TK (258) 1
-    ID_TK (259) 1
-    PUNTOYCOMA_TK (260) 1 15 16 17 18 28 35 37 75 92 93 94
-    FALGORITMO_TK (261) 1
-    TIPO_TK (262) 15
-    FTIPO_TK (263) 15
-    CONST_TK (264) 16
-    FCONST_TK (265) 16
-    VAR_TK (266) 17
-    FVAR_TK (267) 17
-    IDENTIFICADOR_TK (268) 18 22 28 35 39 40 71 89 92 93 99 100
-    IGUAL_TK (269) 18 35 67
-    TUPLA_TK (270) 20
-    FTUPLA_TK (271) 20
-    TABLA_TK (272) 21
-    DE_TK (273) 21
-    REF_TK (274) 24 74
-    DOBLEPUNTO_TK (275) 21 23
-    LITERAL_TK (276) 27 35 57
-    DOSPUNTOS_TK (277) 28 37 96 97 98
-    ENTERO_TK (278) 30
-    REAL_TK (279) 31
-    BOOLEANO_TK (280) 32
-    CADENA_TK (281) 33
-    CARACTER_TK (282) 34
-    COMA_TK (283) 39 101
-    ENT_TK (284) 45 96
-    SAL_TK (285) 46 97
-    ES_TK (286) 98
-    SUMA_TK (287) 49 59
-    RESTA_TK (288) 50 58
-    MULT_TK (289) 51
-    DIVARIT_TK (290) 52
-    MOD_TK (291) 53
-    DIV_TK (292) 54
-    PARENTESISA_TK (293) 55 92 93 99 100
-    PARENTESISC_TK (294) 55 92 93 99 100
-    CORCHETEA_TK (295) 21 73
-    CORCHETEC_TK (296) 21 73
-    CORCHETES_TK (297) 84
-    PUNTO_TK (298) 1 72
-    Y_TK (299) 60
-    O_TK (300) 61
-    NO_TK (301) 62
-    MENOR_TK (302) 65
-    MAYOR_TK (303) 66
-    MENORIGUAL_TK (304) 70
-    MAYORIGUAL_TK (305) 69
-    DIFERENTE_TK (306) 68
-    CONTINUAR_TK (307) 77
-    ASIGNACION_TK (308) 82 89
-    SI_TK (309) 83
-    FLECHA_TK (310) 83 84
-    FSI_TK (311) 83
-    MIENTRAS_TK (312) 88
-    HACER_TK (313) 88 89
-    FMIENTRAS_TK (314) 88
-    PARA_TK (315) 89
-    HASTA_TK (316) 89
-    FPARA_TK (317) 89
-    ACCION_TK (318) 90
-    FACCION_TK (319) 90
-    FUNCION_TK (320) 91
-    DEV_TK (321) 91 93
-    FFUNCION_TK (322) 91
-    COMENTARIO (323) 2 3
-    VERDADERO_TK (324) 63
-    FALSO_TK (325) 64
+    PUNTOYCOMA_TK (259) 1 15 16 17 18 28 35 37 75 92 93 94
+    FALGORITMO_TK (260) 1
+    TIPO_TK (261) 15
+    FTIPO_TK (262) 15
+    CONST_TK (263) 16
+    FCONST_TK (264) 16
+    VAR_TK (265) 17
+    FVAR_TK (266) 17
+    IDENTIFICADOR_TK (267) 1 18 22 28 35 39 40 71 89 92 93 99 100
+    IGUAL_TK (268) 18 35 67
+    TUPLA_TK (269) 20
+    FTUPLA_TK (270) 20
+    TABLA_TK (271) 21
+    DE_TK (272) 21
+    REF_TK (273) 24 74
+    DOBLEPUNTO_TK (274) 21 23
+    LITERAL_TK (275) 27 35 57
+    DOSPUNTOS_TK (276) 28 37 96 97 98
+    ENTERO_TK (277) 30
+    REAL_TK (278) 31
+    BOOLEANO_TK (279) 32
+    CADENA_TK (280) 33
+    CARACTER_TK (281) 34
+    COMA_TK (282) 39 101
+    ENT_TK (283) 45 96
+    SAL_TK (284) 46 97
+    ES_TK (285) 98
+    SUMA_TK (286) 49 59
+    RESTA_TK (287) 50 58
+    MULT_TK (288) 51
+    DIVARIT_TK (289) 52
+    MOD_TK (290) 53
+    DIV_TK (291) 54
+    PARENTESISA_TK (292) 55 92 93 99 100
+    PARENTESISC_TK (293) 55 92 93 99 100
+    CORCHETEA_TK (294) 21 73
+    CORCHETEC_TK (295) 21 73
+    CORCHETES_TK (296) 84
+    PUNTO_TK (297) 1 72
+    Y_TK (298) 60
+    O_TK (299) 61
+    NO_TK (300) 62
+    MENOR_TK (301) 65
+    MAYOR_TK (302) 66
+    MENORIGUAL_TK (303) 70
+    MAYORIGUAL_TK (304) 69
+    DIFERENTE_TK (305) 68
+    CONTINUAR_TK (306) 77
+    ASIGNACION_TK (307) 82 89
+    SI_TK (308) 83
+    FLECHA_TK (309) 83 84
+    FSI_TK (310) 83
+    MIENTRAS_TK (311) 88
+    HACER_TK (312) 88 89
+    FMIENTRAS_TK (313) 88
+    PARA_TK (314) 89
+    HASTA_TK (315) 89
+    FPARA_TK (316) 89
+    ACCION_TK (317) 90
+    FACCION_TK (318) 90
+    FUNCION_TK (319) 91
+    DEV_TK (320) 91 93
+    FFUNCION_TK (321) 91
+    COMENTARIO_TK (322) 2 3
+    VERDADERO_TK (323) 63
+    FALSO_TK (324) 64
+    MENOSU (325)
 
 
 No terminales con las reglas donde aparecen
@@ -376,9 +376,9 @@ Estado 0
 
 Estado 1
 
-    1 desc_algoritmo: ALGORITMO_TK • ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK • IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
 
-    ID_TK  desplazar e ir al estado 3
+    IDENTIFICADOR_TK  desplazar e ir al estado 3
 
 
 Estado 2
@@ -390,7 +390,7 @@ Estado 2
 
 Estado 3
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK • PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK • PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
 
     PUNTOYCOMA_TK  desplazar e ir al estado 5
 
@@ -404,7 +404,7 @@ Estado 4
 
 Estado 5
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK • cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK • cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK
 
     TIPO_TK   desplazar e ir al estado 6
     CONST_TK  desplazar e ir al estado 7
@@ -441,7 +441,7 @@ Estado 7
 
 Estado 8
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg • bloque_alg FALGORITMO_TK PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg • bloque_alg FALGORITMO_TK PUNTO_TK
 
     TIPO_TK   desplazar e ir al estado 6
     CONST_TK  desplazar e ir al estado 7
@@ -459,7 +459,7 @@ Estado 8
 
 Estado 9
 
-    2 cabecera_alg: decl_globales • decl_a_f decl_ent_sal COMENTARIO
+    2 cabecera_alg: decl_globales • decl_a_f decl_ent_sal COMENTARIO_TK
 
     ACCION_TK   desplazar e ir al estado 23
     FUNCION_TK  desplazar e ir al estado 24
@@ -541,16 +541,16 @@ Estado 16
 
 Estado 17
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg • FALGORITMO_TK PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg bloque_alg • FALGORITMO_TK PUNTO_TK
 
     FALGORITMO_TK  desplazar e ir al estado 37
 
 
 Estado 18
 
-    3 bloque_alg: bloque • COMENTARIO
+    3 bloque_alg: bloque • COMENTARIO_TK
 
-    COMENTARIO  desplazar e ir al estado 38
+    COMENTARIO_TK  desplazar e ir al estado 38
 
 
 Estado 19
@@ -642,7 +642,7 @@ Estado 24
 
 Estado 25
 
-    2 cabecera_alg: decl_globales decl_a_f • decl_ent_sal COMENTARIO
+    2 cabecera_alg: decl_globales decl_a_f • decl_ent_sal COMENTARIO_TK
 
     ENT_TK  desplazar e ir al estado 60
     SAL_TK  desplazar e ir al estado 61
@@ -773,14 +773,14 @@ Estado 36
 
 Estado 37
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK • PUNTO_TK
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK • PUNTO_TK
 
     PUNTO_TK  desplazar e ir al estado 96
 
 
 Estado 38
 
-    3 bloque_alg: bloque COMENTARIO •
+    3 bloque_alg: bloque COMENTARIO_TK •
 
     $default  reduce usando la regla 3 (bloque_alg)
 
@@ -1014,9 +1014,9 @@ Estado 61
 
 Estado 62
 
-    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal • COMENTARIO
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal • COMENTARIO_TK
 
-    COMENTARIO  desplazar e ir al estado 114
+    COMENTARIO_TK  desplazar e ir al estado 114
 
 
 Estado 63
@@ -1414,7 +1414,7 @@ Estado 95
 
 Estado 96
 
-    1 desc_algoritmo: ALGORITMO_TK ID_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK •
+    1 desc_algoritmo: ALGORITMO_TK IDENTIFICADOR_TK PUNTOYCOMA_TK cabecera_alg bloque_alg FALGORITMO_TK PUNTO_TK •
 
     $default  reduce usando la regla 1 (desc_algoritmo)
 
@@ -1634,7 +1634,7 @@ Estado 113
 
 Estado 114
 
-    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO •
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO_TK •
 
     $default  reduce usando la regla 2 (cabecera_alg)
 
@@ -1739,11 +1739,6 @@ Estado 122
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    MULT_TK     desplazar e ir al estado 136
-    DIVARIT_TK  desplazar e ir al estado 137
-    MOD_TK      desplazar e ir al estado 138
-    DIV_TK      desplazar e ir al estado 139
-
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 59 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
@@ -1771,11 +1766,6 @@ Estado 123
    58    | RESTA_TK exp •
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
-
-    MULT_TK     desplazar e ir al estado 136
-    DIVARIT_TK  desplazar e ir al estado 137
-    MOD_TK      desplazar e ir al estado 138
-    DIV_TK      desplazar e ir al estado 139
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 58 (exp)]

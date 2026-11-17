@@ -3,6 +3,7 @@
 	#include <stdio.h> // Para poder escribir en el terminal
 	#include <stdlib.h> // Para usar exit()
 	#include <strings.h> // Para trabajar con cadenas de caracteres
+	#include "parser.tab.h"
 %}
 
 
@@ -12,8 +13,8 @@ DIGITODR          [0-9]
 IDDR              {LETRADR}({LETRADR}|{DIGITODR})*
 
 EXPONENTEDR       [eE][+-]?{DIGITODR}+
-LIT_ENTERODR      [+-]?{DIGITODR}+{EXPONENTEDR}?
-LIT_REALDR        [+-]?{DIGITODR}+\.{DIGITODR}+{EXPONENTEDR}?|[+-]?{DIGITODR}+[rR]
+LIT_ENTERODR      {DIGITODR}+{EXPONENTEDR}?
+LIT_REALDR        {DIGITODR}+\.{DIGITODR}+{EXPONENTEDR}?|[+-]?{DIGITODR}+[rR]
 LIT_BOOLEANODR    (?i:verdadero|falso)
 
 LIT_CARACTERDR    \"[^\"]\"
@@ -23,7 +24,10 @@ LIT_CADENADR      '([^']|\/')*'
 
 [ \t\n\r]+      {}
 
-"{"([^}]|"/}")*"}"   { printf(": COMENTARIO -> %s\n", yytext); }
+"{"([^}]|"/}")*"}"   {
+    printf(": COMENTARIO -> %s\n", yytext);
+    return COMENTARIO_TK;
+}
 
 (?i:accion)       {return ACCION_TK;}
 (?i:algoritmo)    {return ALGORITMO_TK;}
@@ -65,8 +69,7 @@ LIT_CADENADR      '([^']|\/')*'
 (?i:tupla)        {return TUPLA_TK;}
 (?i:var)          {return VAR_TK;}
 (?i:y)            {return Y_TK;}
-(?i:entonces)     {return ENTONCES_TK;}
-(?i:sino)         {return SINO_TK;}
+
 
 :=                {return ASIGNACION_TK;}
 \.\.              {return DOBLEPUNTO_TK;}
@@ -79,7 +82,7 @@ LIT_CADENADR      '([^']|\/')*'
 \+                {return SUMA_TK;}
 \-                {return RESTA_TK;}
 \*                {return MULT_TK;}
-\/                {return DIV_TK;}
+\/                {return DIVARIT_TK;}
 
 =                 {return IGUAL_TK;}
 \<                {return MENOR_TK;}
@@ -97,82 +100,35 @@ LIT_CADENADR      '([^']|\/')*'
 
 
 
-{LIT_REALDR}      { printf("LITERAL_REAL -> Valor: %f\n", atof(yytext)); }
-
 {LIT_REALDR}      {
-    yylval.literal.tipoDelValor = REAL;
-    yylval.literal.valor.valorReal = atof(yytext);
+    printf("LITERAL_REAL -> Valor: %f\n", atof(yytext));
     return LITERAL_TK;
 }
-
-{LIT_ENTERODR}    { printf("LITERAL_ENTERO -> Valor: %d\n", atoi(yytext)); }
-
 {LIT_ENTERODR}    {
-    yylval.literal.tipoDelValor = ENTERO;
-    yylval.literal.valor.valorEntero = atoi(yytext);
+    printf("LITERAL_ENTERO -> Valor: %d\n", atoi(yytext));
     return LITERAL_TK;
 }
-
-{LIT_CARACTERDR}  { printf("LITERAL_CARACTER -> %s\n", yytext); }
-
 {LIT_CARACTERDR}  {
-    yylval.literal.tipoDelValor = CARACTER;
-    yylval.literal.valor.valorCaracter = yytext[1];
+    printf("LITERAL_CARACTER -> %s\n", yytext);
     return LITERAL_TK;
 }
-
-
-{LIT_BOOLEANODR}  { printf("BOOLEANO -> %s\n", yytext); }
-
 {LIT_BOOLEANODR}  {
-    yylval.literal.tipoDelValor = BOOLEANO;
-    if (strcasecmp(yytext, "verdadero") == 0)
-        yylval.literal.valor.valorBooleano = VERDADERO;
-    else
-        yylval.literal.valor.valorBooleano = FALSO;
+    printf("BOOLEANO -> %s\n", yytext);
     return LITERAL_TK;
 }
-
-
-{LIT_CADENADR}    { printf("LITERAL_CADENA -> %s\n", yytext); }
-
-{LIT_CADENADR} {
-    yylval.literal.tipoDelValor = CADENA;
-    if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL)
-        errorEnScanner("No hay memoria para strdup() al leer cadena: %s\n", yytext);
+{LIT_CADENADR}    {
+    printf("LITERAL_CADENA -> %s\n", yytext);
     return LITERAL_TK;
 }
-
-
-{IDDR}            { printf("IDENTIFICADOR -> %s\n", yytext); }
-
-{IDDR} {
-    yylval.cadena = strdup(yytext);
+{IDDR}            {
+    printf("IDENTIFICADOR -> %s\n", yytext);
     return IDENTIFICADOR_TK;
 }
-
 .                 {
     fprintf(stderr, "ERROR LÉXICO: Carácter no reconocido '%s'\n", yytext);
 }
 
 
 
-
-
-
-
 %%
 
-int main(int argc, char **argv) {
-    if (argc > 1) {
-        FILE *f = fopen(argv[1], "r");
-        if (!f) {
-            perror("Error al abrir el archivo de entrada");
-            return 1;
-        }
-        yyin = f;
-    }
-
-    yylex();
-    return 0;
-}
