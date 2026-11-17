@@ -1,0 +1,27 @@
+1) PONEMOS ASOCIATIVIDAD LEFT AL OPERADOR O (PORQUE ES EL QUE TIENE MENOR PRIORIDAD DE TODOS)
+            1.1) (a o b o c -> (a o b ) o c)
+
+2) PONEMOS ASOCIATIVIDAD LEFT AL OPERADOR Y (EN LA SIGUIENTE LINEA, PORQUE TIENE MAYOR PRIORIDAD QUE O)
+            2.1) (a y b o c -> (a y b) o c)
+
+3) PONEMOS ASOCIATIVIDAD RIGHT AL OPERADOR NO (PONEMOS RIGHT PORQUE AFECTA A LO QUE TIENE A SU DERECHA Y MAS ABAJO POR MAYOR PRIORIDAD)
+            3.1) (no no a -> no (no a))
+
+4) HACEMOS NONASSOC LOS OPERADORES RELACIONALES (PARA PROHIBIR ENCADENAR OPERADORES RELACIONALES EN UNA MISMA LINEA)
+            4.1) ( a < b < c  -> ERROR DE SINTAXIS)
+
+5) PONEMOS ASOCIATIVIDAD LEFT A LA SUMA Y LA RESTA (PARA QUE SE EVALUEN DE IZQUIERDA A DERECHA)
+            5.1) (a + b + c -> (a + b) + c)
+            5.2) (a - b - c -> (a - b) - c)
+
+6) PONEMOS ASOCIATIVIDAD LEFT A MULTIPLICACION, DIVISION REAL, DIVISION ENTERA (DIV) Y MODULO (MOD) (UNA LINEA DEBAJO PORQUE TIENEN QUE HACERSE ANTES QUE + Y -)
+
+7) PONEMOS ASOCIATIVIDAD LEFT A REF, CORCHETE APERTURA Y PUNTO (PARA HACER BIEN LAS TUPLAS ANIDADAS, LAS MATRICES Y Y PUNTEROS)
+            7.1) (a.b.c -> (a.b).c acceder primero al campo b de a y luego accedes al campo c)
+            7.2) (t[i][j] -> (t[i])[j] buscar primero la fila i y luego buscar la columna j de esa fila i)
+            7.3) (p ref .b -> (p ref) .b primero el puntero p y luego acceder al campo de b de la tupla del puntero)
+
+
+
+
+MAYOR PRIORIDAD = MAS ABAJO
