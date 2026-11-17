@@ -1,0 +1,48 @@
+{LIT_REALDR}      {
+    yylval.literal.tipoDelValor = REAL;
+    yylval.literal.valor.valorReal = atof(yytext);
+    return LITERAL_TK;
+}
+
+{LIT_ENTERODR}    {
+    yylval.literal.tipoDelValor = ENTERO;
+    yylval.literal.valor.valorEntero = atoi(yytext);
+    return LITERAL_TK;
+}
+
+{LIT_CARACTERDR}  {
+    yylval.literal.tipoDelValor = CARACTER;
+    yylval.literal.valor.valorCaracter = yytext[1];
+    return LITERAL_TK;
+}
+
+
+{LIT_BOOLEANODR}  {
+    yylval.literal.tipoDelValor = BOOLEANO;
+    if (strcasecmp(yytext, "verdadero") == 0)
+        yylval.literal.valor.valorBooleano = VERDADERO;
+    else
+        yylval.literal.valor.valorBooleano = FALSO;
+    return LITERAL_TK;
+}
+
+
+{LIT_CADENADR} {
+    yylval.literal.tipoDelValor = CADENA;
+    if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL)
+        errorEnScanner("No hay memoria para strdup() al leer cadena: %s\n", yytext);
+    return LITERAL_TK;
+}
+
+
+{IDDR} {
+    yylval.cadena = strdup(yytext);
+    return IDENTIFICADOR_TK;
+}
+
+
+
+
+
+(?i:entonces)     {return ENTONCES_TK;}
+(?i:sino)         {return SINO_TK;}
