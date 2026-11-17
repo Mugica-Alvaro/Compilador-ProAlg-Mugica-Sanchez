@@ -1,23 +1,16 @@
 Estado 71 conflictos: 3 reducción/reducción
 Estado 87 conflictos: 8 desplazamiento/reducción
-Estado 122 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 123 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 125 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 153 conflictos: 3 desplazamiento/reducción
-Estado 171 conflictos: 6 desplazamiento/reducción
-Estado 172 conflictos: 6 desplazamiento/reducción
-Estado 173 conflictos: 6 desplazamiento/reducción
-Estado 174 conflictos: 6 desplazamiento/reducción
-Estado 175 conflictos: 6 desplazamiento/reducción
-Estado 176 conflictos: 6 desplazamiento/reducción
-Estado 177 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 178 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 179 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 180 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 181 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 182 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 183 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
-Estado 184 conflictos: 8 desplazamiento/reducción, 6 reducción/reducción
+Estado 122 conflictos: 6 reducción/reducción
+Estado 123 conflictos: 6 reducción/reducción
+Estado 125 conflictos: 6 reducción/reducción
+Estado 177 conflictos: 6 reducción/reducción
+Estado 178 conflictos: 6 reducción/reducción
+Estado 179 conflictos: 6 reducción/reducción
+Estado 180 conflictos: 6 reducción/reducción
+Estado 181 conflictos: 6 reducción/reducción
+Estado 182 conflictos: 6 reducción/reducción
+Estado 183 conflictos: 6 reducción/reducción
+Estado 184 conflictos: 6 reducción/reducción
 
 
 Gramática
@@ -1746,25 +1739,13 @@ Estado 122
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
     MULT_TK     desplazar e ir al estado 136
     DIVARIT_TK  desplazar e ir al estado 137
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 59 (exp)]
-    SUMA_TK        [reduce usando la regla 59 (exp)]
-    RESTA_TK       [reduce usando la regla 59 (exp)]
-    MULT_TK        [reduce usando la regla 59 (exp)]
-    DIVARIT_TK     [reduce usando la regla 59 (exp)]
-    MOD_TK         [reduce usando la regla 59 (exp)]
-    DIV_TK         [reduce usando la regla 59 (exp)]
-    Y_TK           [reduce usando la regla 59 (exp)]
-    O_TK           [reduce usando la regla 59 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 59 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -1791,25 +1772,13 @@ Estado 123
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
     MULT_TK     desplazar e ir al estado 136
     DIVARIT_TK  desplazar e ir al estado 137
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 58 (exp)]
-    SUMA_TK        [reduce usando la regla 58 (exp)]
-    RESTA_TK       [reduce usando la regla 58 (exp)]
-    MULT_TK        [reduce usando la regla 58 (exp)]
-    DIVARIT_TK     [reduce usando la regla 58 (exp)]
-    MOD_TK         [reduce usando la regla 58 (exp)]
-    DIV_TK         [reduce usando la regla 58 (exp)]
-    Y_TK           [reduce usando la regla 58 (exp)]
-    O_TK           [reduce usando la regla 58 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 58 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -1868,19 +1837,9 @@ Estado 125
     DIVARIT_TK  desplazar e ir al estado 137
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 62 (exp)]
-    SUMA_TK        [reduce usando la regla 62 (exp)]
-    RESTA_TK       [reduce usando la regla 62 (exp)]
-    MULT_TK        [reduce usando la regla 62 (exp)]
-    DIVARIT_TK     [reduce usando la regla 62 (exp)]
-    MOD_TK         [reduce usando la regla 62 (exp)]
-    DIV_TK         [reduce usando la regla 62 (exp)]
-    Y_TK           [reduce usando la regla 62 (exp)]
-    O_TK           [reduce usando la regla 62 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 62 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2346,14 +2305,7 @@ Estado 153
    73         | operando • CORCHETEA_TK expresion CORCHETEC_TK
    74         | operando • REF_TK
 
-    REF_TK        desplazar e ir al estado 103
-    CORCHETEA_TK  desplazar e ir al estado 104
-    PUNTO_TK      desplazar e ir al estado 105
-
-    REF_TK        [reduce usando la regla 72 (operando)]
-    CORCHETEA_TK  [reduce usando la regla 72 (operando)]
-    PUNTO_TK      [reduce usando la regla 72 (operando)]
-    $default      reduce usando la regla 72 (operando)
+    $default  reduce usando la regla 72 (operando)
 
 
 Estado 154
@@ -2539,20 +2491,14 @@ Estado 171
    69    | expresion • MAYORIGUAL_TK expresion
    70    | expresion • MENORIGUAL_TK expresion
 
-    IGUAL_TK       desplazar e ir al estado 128
-    MENOR_TK       desplazar e ir al estado 129
-    MAYOR_TK       desplazar e ir al estado 130
-    MENORIGUAL_TK  desplazar e ir al estado 131
-    MAYORIGUAL_TK  desplazar e ir al estado 132
-    DIFERENTE_TK   desplazar e ir al estado 133
+    IGUAL_TK       error (no asociativo)
+    MENOR_TK       error (no asociativo)
+    MAYOR_TK       error (no asociativo)
+    MENORIGUAL_TK  error (no asociativo)
+    MAYORIGUAL_TK  error (no asociativo)
+    DIFERENTE_TK   error (no asociativo)
 
-    IGUAL_TK       [reduce usando la regla 67 (exp)]
-    MENOR_TK       [reduce usando la regla 67 (exp)]
-    MAYOR_TK       [reduce usando la regla 67 (exp)]
-    MENORIGUAL_TK  [reduce usando la regla 67 (exp)]
-    MAYORIGUAL_TK  [reduce usando la regla 67 (exp)]
-    DIFERENTE_TK   [reduce usando la regla 67 (exp)]
-    $default       reduce usando la regla 67 (exp)
+    $default  reduce usando la regla 67 (exp)
 
 
 Estado 172
@@ -2565,20 +2511,14 @@ Estado 172
    69    | expresion • MAYORIGUAL_TK expresion
    70    | expresion • MENORIGUAL_TK expresion
 
-    IGUAL_TK       desplazar e ir al estado 128
-    MENOR_TK       desplazar e ir al estado 129
-    MAYOR_TK       desplazar e ir al estado 130
-    MENORIGUAL_TK  desplazar e ir al estado 131
-    MAYORIGUAL_TK  desplazar e ir al estado 132
-    DIFERENTE_TK   desplazar e ir al estado 133
+    IGUAL_TK       error (no asociativo)
+    MENOR_TK       error (no asociativo)
+    MAYOR_TK       error (no asociativo)
+    MENORIGUAL_TK  error (no asociativo)
+    MAYORIGUAL_TK  error (no asociativo)
+    DIFERENTE_TK   error (no asociativo)
 
-    IGUAL_TK       [reduce usando la regla 65 (exp)]
-    MENOR_TK       [reduce usando la regla 65 (exp)]
-    MAYOR_TK       [reduce usando la regla 65 (exp)]
-    MENORIGUAL_TK  [reduce usando la regla 65 (exp)]
-    MAYORIGUAL_TK  [reduce usando la regla 65 (exp)]
-    DIFERENTE_TK   [reduce usando la regla 65 (exp)]
-    $default       reduce usando la regla 65 (exp)
+    $default  reduce usando la regla 65 (exp)
 
 
 Estado 173
@@ -2591,20 +2531,14 @@ Estado 173
    69    | expresion • MAYORIGUAL_TK expresion
    70    | expresion • MENORIGUAL_TK expresion
 
-    IGUAL_TK       desplazar e ir al estado 128
-    MENOR_TK       desplazar e ir al estado 129
-    MAYOR_TK       desplazar e ir al estado 130
-    MENORIGUAL_TK  desplazar e ir al estado 131
-    MAYORIGUAL_TK  desplazar e ir al estado 132
-    DIFERENTE_TK   desplazar e ir al estado 133
+    IGUAL_TK       error (no asociativo)
+    MENOR_TK       error (no asociativo)
+    MAYOR_TK       error (no asociativo)
+    MENORIGUAL_TK  error (no asociativo)
+    MAYORIGUAL_TK  error (no asociativo)
+    DIFERENTE_TK   error (no asociativo)
 
-    IGUAL_TK       [reduce usando la regla 66 (exp)]
-    MENOR_TK       [reduce usando la regla 66 (exp)]
-    MAYOR_TK       [reduce usando la regla 66 (exp)]
-    MENORIGUAL_TK  [reduce usando la regla 66 (exp)]
-    MAYORIGUAL_TK  [reduce usando la regla 66 (exp)]
-    DIFERENTE_TK   [reduce usando la regla 66 (exp)]
-    $default       reduce usando la regla 66 (exp)
+    $default  reduce usando la regla 66 (exp)
 
 
 Estado 174
@@ -2617,20 +2551,14 @@ Estado 174
    70    | expresion • MENORIGUAL_TK expresion
    70    | expresion MENORIGUAL_TK expresion •
 
-    IGUAL_TK       desplazar e ir al estado 128
-    MENOR_TK       desplazar e ir al estado 129
-    MAYOR_TK       desplazar e ir al estado 130
-    MENORIGUAL_TK  desplazar e ir al estado 131
-    MAYORIGUAL_TK  desplazar e ir al estado 132
-    DIFERENTE_TK   desplazar e ir al estado 133
+    IGUAL_TK       error (no asociativo)
+    MENOR_TK       error (no asociativo)
+    MAYOR_TK       error (no asociativo)
+    MENORIGUAL_TK  error (no asociativo)
+    MAYORIGUAL_TK  error (no asociativo)
+    DIFERENTE_TK   error (no asociativo)
 
-    IGUAL_TK       [reduce usando la regla 70 (exp)]
-    MENOR_TK       [reduce usando la regla 70 (exp)]
-    MAYOR_TK       [reduce usando la regla 70 (exp)]
-    MENORIGUAL_TK  [reduce usando la regla 70 (exp)]
-    MAYORIGUAL_TK  [reduce usando la regla 70 (exp)]
-    DIFERENTE_TK   [reduce usando la regla 70 (exp)]
-    $default       reduce usando la regla 70 (exp)
+    $default  reduce usando la regla 70 (exp)
 
 
 Estado 175
@@ -2643,20 +2571,14 @@ Estado 175
    69    | expresion MAYORIGUAL_TK expresion •
    70    | expresion • MENORIGUAL_TK expresion
 
-    IGUAL_TK       desplazar e ir al estado 128
-    MENOR_TK       desplazar e ir al estado 129
-    MAYOR_TK       desplazar e ir al estado 130
-    MENORIGUAL_TK  desplazar e ir al estado 131
-    MAYORIGUAL_TK  desplazar e ir al estado 132
-    DIFERENTE_TK   desplazar e ir al estado 133
+    IGUAL_TK       error (no asociativo)
+    MENOR_TK       error (no asociativo)
+    MAYOR_TK       error (no asociativo)
+    MENORIGUAL_TK  error (no asociativo)
+    MAYORIGUAL_TK  error (no asociativo)
+    DIFERENTE_TK   error (no asociativo)
 
-    IGUAL_TK       [reduce usando la regla 69 (exp)]
-    MENOR_TK       [reduce usando la regla 69 (exp)]
-    MAYOR_TK       [reduce usando la regla 69 (exp)]
-    MENORIGUAL_TK  [reduce usando la regla 69 (exp)]
-    MAYORIGUAL_TK  [reduce usando la regla 69 (exp)]
-    DIFERENTE_TK   [reduce usando la regla 69 (exp)]
-    $default       reduce usando la regla 69 (exp)
+    $default  reduce usando la regla 69 (exp)
 
 
 Estado 176
@@ -2669,20 +2591,14 @@ Estado 176
    69    | expresion • MAYORIGUAL_TK expresion
    70    | expresion • MENORIGUAL_TK expresion
 
-    IGUAL_TK       desplazar e ir al estado 128
-    MENOR_TK       desplazar e ir al estado 129
-    MAYOR_TK       desplazar e ir al estado 130
-    MENORIGUAL_TK  desplazar e ir al estado 131
-    MAYORIGUAL_TK  desplazar e ir al estado 132
-    DIFERENTE_TK   desplazar e ir al estado 133
+    IGUAL_TK       error (no asociativo)
+    MENOR_TK       error (no asociativo)
+    MAYOR_TK       error (no asociativo)
+    MENORIGUAL_TK  error (no asociativo)
+    MAYORIGUAL_TK  error (no asociativo)
+    DIFERENTE_TK   error (no asociativo)
 
-    IGUAL_TK       [reduce usando la regla 68 (exp)]
-    MENOR_TK       [reduce usando la regla 68 (exp)]
-    MAYOR_TK       [reduce usando la regla 68 (exp)]
-    MENORIGUAL_TK  [reduce usando la regla 68 (exp)]
-    MAYORIGUAL_TK  [reduce usando la regla 68 (exp)]
-    DIFERENTE_TK   [reduce usando la regla 68 (exp)]
-    $default       reduce usando la regla 68 (exp)
+    $default  reduce usando la regla 68 (exp)
 
 
 Estado 177
@@ -2698,25 +2614,13 @@ Estado 177
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
     MULT_TK     desplazar e ir al estado 136
     DIVARIT_TK  desplazar e ir al estado 137
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 49 (exp)]
-    SUMA_TK        [reduce usando la regla 49 (exp)]
-    RESTA_TK       [reduce usando la regla 49 (exp)]
-    MULT_TK        [reduce usando la regla 49 (exp)]
-    DIVARIT_TK     [reduce usando la regla 49 (exp)]
-    MOD_TK         [reduce usando la regla 49 (exp)]
-    DIV_TK         [reduce usando la regla 49 (exp)]
-    Y_TK           [reduce usando la regla 49 (exp)]
-    O_TK           [reduce usando la regla 49 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 49 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2743,25 +2647,13 @@ Estado 178
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
     MULT_TK     desplazar e ir al estado 136
     DIVARIT_TK  desplazar e ir al estado 137
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 50 (exp)]
-    SUMA_TK        [reduce usando la regla 50 (exp)]
-    RESTA_TK       [reduce usando la regla 50 (exp)]
-    MULT_TK        [reduce usando la regla 50 (exp)]
-    DIVARIT_TK     [reduce usando la regla 50 (exp)]
-    MOD_TK         [reduce usando la regla 50 (exp)]
-    DIV_TK         [reduce usando la regla 50 (exp)]
-    Y_TK           [reduce usando la regla 50 (exp)]
-    O_TK           [reduce usando la regla 50 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 50 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2788,25 +2680,8 @@ Estado 179
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
-    MULT_TK     desplazar e ir al estado 136
-    DIVARIT_TK  desplazar e ir al estado 137
-    MOD_TK      desplazar e ir al estado 138
-    DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
-
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 51 (exp)]
-    SUMA_TK        [reduce usando la regla 51 (exp)]
-    RESTA_TK       [reduce usando la regla 51 (exp)]
-    MULT_TK        [reduce usando la regla 51 (exp)]
-    DIVARIT_TK     [reduce usando la regla 51 (exp)]
-    MOD_TK         [reduce usando la regla 51 (exp)]
-    DIV_TK         [reduce usando la regla 51 (exp)]
-    Y_TK           [reduce usando la regla 51 (exp)]
-    O_TK           [reduce usando la regla 51 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 51 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2833,25 +2708,8 @@ Estado 180
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
-    MULT_TK     desplazar e ir al estado 136
-    DIVARIT_TK  desplazar e ir al estado 137
-    MOD_TK      desplazar e ir al estado 138
-    DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
-
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 52 (exp)]
-    SUMA_TK        [reduce usando la regla 52 (exp)]
-    RESTA_TK       [reduce usando la regla 52 (exp)]
-    MULT_TK        [reduce usando la regla 52 (exp)]
-    DIVARIT_TK     [reduce usando la regla 52 (exp)]
-    MOD_TK         [reduce usando la regla 52 (exp)]
-    DIV_TK         [reduce usando la regla 52 (exp)]
-    Y_TK           [reduce usando la regla 52 (exp)]
-    O_TK           [reduce usando la regla 52 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 52 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2878,25 +2736,8 @@ Estado 181
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
-    MULT_TK     desplazar e ir al estado 136
-    DIVARIT_TK  desplazar e ir al estado 137
-    MOD_TK      desplazar e ir al estado 138
-    DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
-
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 53 (exp)]
-    SUMA_TK        [reduce usando la regla 53 (exp)]
-    RESTA_TK       [reduce usando la regla 53 (exp)]
-    MULT_TK        [reduce usando la regla 53 (exp)]
-    DIVARIT_TK     [reduce usando la regla 53 (exp)]
-    MOD_TK         [reduce usando la regla 53 (exp)]
-    DIV_TK         [reduce usando la regla 53 (exp)]
-    Y_TK           [reduce usando la regla 53 (exp)]
-    O_TK           [reduce usando la regla 53 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 53 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2923,25 +2764,8 @@ Estado 182
    60    | exp • Y_TK exp
    61    | exp • O_TK exp
 
-    SUMA_TK     desplazar e ir al estado 134
-    RESTA_TK    desplazar e ir al estado 135
-    MULT_TK     desplazar e ir al estado 136
-    DIVARIT_TK  desplazar e ir al estado 137
-    MOD_TK      desplazar e ir al estado 138
-    DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
-
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 54 (exp)]
-    SUMA_TK        [reduce usando la regla 54 (exp)]
-    RESTA_TK       [reduce usando la regla 54 (exp)]
-    MULT_TK        [reduce usando la regla 54 (exp)]
-    DIVARIT_TK     [reduce usando la regla 54 (exp)]
-    MOD_TK         [reduce usando la regla 54 (exp)]
-    DIV_TK         [reduce usando la regla 54 (exp)]
-    Y_TK           [reduce usando la regla 54 (exp)]
-    O_TK           [reduce usando la regla 54 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 54 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -2974,19 +2798,9 @@ Estado 183
     DIVARIT_TK  desplazar e ir al estado 137
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
-    Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 60 (exp)]
-    SUMA_TK        [reduce usando la regla 60 (exp)]
-    RESTA_TK       [reduce usando la regla 60 (exp)]
-    MULT_TK        [reduce usando la regla 60 (exp)]
-    DIVARIT_TK     [reduce usando la regla 60 (exp)]
-    MOD_TK         [reduce usando la regla 60 (exp)]
-    DIV_TK         [reduce usando la regla 60 (exp)]
-    Y_TK           [reduce usando la regla 60 (exp)]
-    O_TK           [reduce usando la regla 60 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 60 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
@@ -3020,18 +2834,9 @@ Estado 184
     MOD_TK      desplazar e ir al estado 138
     DIV_TK      desplazar e ir al estado 139
     Y_TK        desplazar e ir al estado 140
-    O_TK        desplazar e ir al estado 141
 
     IGUAL_TK       reduce usando la regla 47 (expresion)
     IGUAL_TK       [reduce usando la regla 61 (exp)]
-    SUMA_TK        [reduce usando la regla 61 (exp)]
-    RESTA_TK       [reduce usando la regla 61 (exp)]
-    MULT_TK        [reduce usando la regla 61 (exp)]
-    DIVARIT_TK     [reduce usando la regla 61 (exp)]
-    MOD_TK         [reduce usando la regla 61 (exp)]
-    DIV_TK         [reduce usando la regla 61 (exp)]
-    Y_TK           [reduce usando la regla 61 (exp)]
-    O_TK           [reduce usando la regla 61 (exp)]
     MENOR_TK       reduce usando la regla 47 (expresion)
     MENOR_TK       [reduce usando la regla 61 (exp)]
     MAYOR_TK       reduce usando la regla 47 (expresion)
