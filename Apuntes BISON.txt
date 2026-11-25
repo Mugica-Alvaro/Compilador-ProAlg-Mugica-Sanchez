@@ -1,0 +1,73 @@
+---BISON---
+
+	1) Definir que datos viajan por la pila de Bison:
+	
+			%union {
+				char *pcadena;
+				tipo_t ptipo;
+				pilaSimbolos palid;
+			}
+			
+	2) Enlazar tokens y no terminales con su campo del union (en no terminales uso %type y en tokens %token)	
+
+
+			%type <ptipo> tipo_base d_tipo
+			%token <pcadena> IDENTIFICADOR_TK
+			%type <palid> lista_id
+					
+	3) Declarar estructuras de trabajo en la zona de código en C:
+			
+			tabla_simbolos miTablaSimbolos;
+	
+	4) Calcular tipos básicos en tipo_base:
+	
+			tipo_base:
+			    ENTERO_TK   { $$ = ENTERO; }
+			    | REAL_TK     { $$ = REAL; }
+			    | BOOLEANO_TK { $$ = BOOL; }
+			    | CADENA_TK   { $$ = CADENA; }
+			    | CARACTER_TK { $$ = CHAR; }
+			;
+
+	5) Resolver el tipo completo en d_tipo
+	
+			d_tipo:
+			    TUPLA_TK lista_campos FTUPLA_TK { $$ = OTRO; }
+			    | TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo { $$ = OTRO; }
+			    | IDENTIFICADOR_TK { $$ = OTRO; }
+			    | expresion_t DOBLEPUNTO_TK expresion_t { $$ = OTRO; }
+			    | REF_TK d_tipo { $$ = OTRO; }
+			    | tipo_base { $$ = $1; }
+			;
+	
+	6) Resolver lista_id:
+		
+			lista_id:
+			    IDENTIFICADOR_TK COMA_TK lista_id {
+				$$ = $3;
+				apilarSimbolo(&$$, $1, NULO);
+			    }
+			    | IDENTIFICADOR_TK {
+				inicializarPila(&$$);
+				apilarSimbolo(&$$, $1, NULO);
+			    }
+			;
+
+	7) Resolver lista_d_var:
+	
+			lista_d_var:
+			    lista_id DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_d_var {
+				while (!esNulaPila(&$1)) {
+				    simbolo s = desapilarSimbolo(&$1);
+				    if (s.nombre != NULL) {
+					if (buscar_simbolo(&miTablaSimbolos, s.nombre) != -1) {
+					    printf("ERROR SEMANTICO: '%s' ya estaba declarado.\n", s.nombre);
+					} else {
+					    insertar_simbolo(&miTablaSimbolos, s.nombre, $3);
+					}
+					free(s.nombre);
+				    }
+				}
+			    }
+			    | { }
+			;

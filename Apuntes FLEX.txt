@@ -1,0 +1,17 @@
+---FLEX---
+
+	1) Añadir opciones de Flex:
+	
+			%option noyywrap
+			%option yylineno
+			
+	2) Pasar el lexema de IDENTIFICADOR_TK en yylval.pcadena
+	
+			{IDDR} {
+			    yylval.pcadena = strdup(yytext);
+			    return IDENTIFICADOR_TK;
+			}
+
+	3) Comprobar palabras reservadas, operadores, delimitadores y literales: Todos deben hacer return NOMBRE_TK; usando los mismos identificadores declarados con %token en parser.y
+	
+	4) Quitar el main() de scanner.l (el main esta ahora en parser.y, hay que quitar el del scanner.l)

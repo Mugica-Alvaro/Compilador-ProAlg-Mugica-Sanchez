@@ -1,9 +1,12 @@
+%option noyywrap
+%option yylineno
+
 %{
-	// Headers standard necesarios
-	#include <stdio.h> // Para poder escribir en el terminal
-	#include <stdlib.h> // Para usar exit()
-	#include <strings.h> // Para trabajar con cadenas de caracteres
-	#include "parser.tab.h"
+	#include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include "tabla_simbolos.h"
+    #include "parser.tab.h"
 %}
 
 
@@ -121,7 +124,7 @@ LIT_CADENADR      '([^']|\/')*'
     return LITERAL_TK;
 }
 {IDDR}            {
-    printf("IDENTIFICADOR -> %s\n", yytext);
+    yylval.pcadena = strdup(yytext);
     return IDENTIFICADOR_TK;
 }
 .                 {

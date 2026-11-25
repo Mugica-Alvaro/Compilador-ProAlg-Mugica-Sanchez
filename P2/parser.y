@@ -1,6 +1,10 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>
+
+	#include "tabla_simbolos.h"
+
+
 	//#include "nombresDeTipos.h"
 	//#include "literal.h"
 	//#include "tablaDeConstantes.h"
@@ -9,14 +13,20 @@
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
 	extern FILE* yyin; // Usamos la varible de Flex en la que viene la entrada
-	//extern int yylineno;
-	//extern char *yytext;
 
-	//TablaDeConstantes tc; //Es donde guardaremos las constantes
+	extern int yylineno;
+	extern char *yytext;
+
+	tabla_simbolos miTablaSimbolos;
 
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
+%union {
+	char *pcadena;
+	tipo_t ptipo;
+	pilaSimbolos palid;
+}
 
 //DECLARAR LOS TOKENS
 
@@ -29,7 +39,11 @@
 %token FCONST_TK
 %token VAR_TK
 %token FVAR_TK
+
+/*
 %token IDENTIFICADOR_TK
+*/
+
 %token IGUAL_TK
 %token TUPLA_TK
 %token FTUPLA_TK
@@ -89,6 +103,10 @@
 %token FALSO_TK
 
 
+%type <ptipo> tipo_base d_tipo
+%token <pcadena> IDENTIFICADOR_TK
+%type <palid> lista_id
+
 //DECLARAR LAS PRECEDENCIAS (LEFT, RIGHT, NONASOC...)
 %left O_TK
 %left Y_TK
@@ -139,8 +157,6 @@ declaraciones:
 ;
 
 
-
-
 //DECLARACIONES
 
 declaracion_tipo:
@@ -162,12 +178,12 @@ lista_d_tipo:
 ;
 
 d_tipo:
-    TUPLA_TK lista_campos FTUPLA_TK { }
-    | TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo { }
-    | IDENTIFICADOR_TK { }
-    | expresion_t DOBLEPUNTO_TK expresion_t { }
-    | REF_TK d_tipo { }
-    | tipo_base { }
+    TUPLA_TK lista_campos FTUPLA_TK { $$ = OTRO; }
+    | TABLA_TK CORCHETEA_TK expresion_t DOBLEPUNTO_TK expresion_t CORCHETEC_TK DE_TK d_tipo { $$ = OTRO; }
+    | IDENTIFICADOR_TK { $$ = OTRO; }
+    | expresion_t DOBLEPUNTO_TK expresion_t { $$ = OTRO; }
+    | REF_TK d_tipo { $$ = OTRO; }
+    | tipo_base { $$ = $1; }
 ;
 
 expresion_t:
@@ -181,13 +197,12 @@ lista_campos:
 ;
 
 tipo_base:
-    ENTERO_TK { }
-    | REAL_TK { }
-    | BOOLEANO_TK { }
-    | CADENA_TK { }
-    | CARACTER_TK { }
+    ENTERO_TK   { $$ = ENTERO; }
+    | REAL_TK     { $$ = REAL; }
+    | BOOLEANO_TK { $$ = BOOL; }
+    | CADENA_TK   { $$ = CADENA; }
+    | CARACTER_TK { $$ = CHAR; }
 ;
-
 
 
 lista_d_cte:
@@ -195,17 +210,33 @@ lista_d_cte:
     | { }
 ;
 
-
 lista_d_var:
-    lista_id DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_d_var { }
+    lista_id DOSPUNTOS_TK d_tipo PUNTOYCOMA_TK lista_d_var {
+        while (!esNulaPila(&$1)) {
+            simbolo s = desapilarSimbolo(&$1);
+            if (s.nombre != NULL) {
+                if (buscar_simbolo(&miTablaSimbolos, s.nombre) != -1) {
+                    printf("ERROR SEMANTICO: '%s' ya estaba declarado.\n", s.nombre);
+                } else {
+                    insertar_simbolo(&miTablaSimbolos, s.nombre, $3);
+                }
+                free(s.nombre);
+            }
+        }
+    }
     | { }
 ;
 
 lista_id:
-    IDENTIFICADOR_TK COMA_TK lista_id { }
-    | IDENTIFICADOR_TK { }
+    IDENTIFICADOR_TK COMA_TK lista_id {
+        $$ = $3;
+        apilarSimbolo(&$$, $1, NULO);
+    }
+    | IDENTIFICADOR_TK {
+        inicializarPila(&$$);
+        apilarSimbolo(&$$, $1, NULO);
+    }
 ;
-
 
 decl_ent_sal:
     decl_ent { }
@@ -351,26 +382,38 @@ l_ll:
 
 %%
 
-int main(int argc, char **argv){
-	#if defined YYDEBUG
-	yydebug=1;
-	#endif
-	++argv, --argc;
-	if (argc > 0)
-		yyin = fopen(argv[0], "r");
-	else
-		yyin = stdin;
-    int resultado = yyparse();
+int main(int argc, char **argv) {
+	inicializar_tabla(&miTablaSimbolos);
 
-    if (resultado == 0) {
-        printf("\n[OK] Sintaxis correcta.\n");
-    } else {
-        printf("\n[ERROR] Error de sintaxis.\n");
-    }
-	/*tc = nuevaTablaDeConstantes();
-	yyparse();
-	imprimeTablaDeConstantes(tc);
-	*/
+	#if defined YYDEBUG
+	yydebug = 1;
+	#endif
+
+	++argv, --argc;
+	if (argc > 0) {
+		yyin = fopen(argv[0], "r");
+		if (!yyin) {
+			perror("Error al abrir el archivo de entrada");
+			return 1;
+		}
+	} else {
+		yyin = stdin;
+	}
+
+	int resultado = yyparse();
+
+	if (resultado == 0) {
+		printf("\n[OK] Sintaxis correcta.\n");
+		imprimir_tabla(&miTablaSimbolos);
+	} else {
+		printf("\n[ERROR] Error de sintaxis.\n");
+	}
+
+	if (argc > 0 && yyin != NULL) {
+		fclose(yyin);
+	}
+
+	return resultado;
 }
 
 void yyerror(char * s){
