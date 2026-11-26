@@ -3,6 +3,7 @@
 	#include <stdlib.h>
 
 	#include "tabla_simbolos.h"
+    #include "tabla_cuadruplas.h"
 
 
 	//#include "nombresDeTipos.h"
@@ -18,6 +19,7 @@
 	extern char *yytext;
 
 	tabla_simbolos miTablaSimbolos;
+    tabla_cuadruplas miTablaCuadruplas;
 
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
